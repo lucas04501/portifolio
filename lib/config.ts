@@ -23,7 +23,7 @@ export const siteConfig = {
   githubUrl: "https://github.com/lucas04501",
   linkedinUrl: "https://www.linkedin.com/in/lucaspds9/",
 
-  yearsOfExperience: "1+",
+  yearsOfExperience: "1",
 
   // Stack com ícones SVG inline (base64/svg string) ou emoji fallback
   tech: {
