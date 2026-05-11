@@ -73,23 +73,6 @@ npm run build && npm start
 
 ---
 
-## ✏️ Personalizar
-
-Edite o arquivo **`lib/config.ts`** — é o único arquivo que você precisa alterar:
-
-```ts
-export const siteConfig = {
-  name: "Lucas",
-  email: "lucaspds9@hotmail.com",
-  github: "lucas04501",
-  linkedin: "lucaspds9",
-  available: true, // muda para false quando não estiver disponível
-  // ...stack técnica, descrição, etc
-};
-```
-
----
-
 ## 📁 Estrutura
 
 ```
@@ -113,18 +96,6 @@ portifolio/
 └── types/
     └── github.ts           # Tipos TypeScript para a API
 ```
-
----
-
-## 🌐 Deploy
-
-Recomendado: **[Vercel](https://vercel.com)**
-
-1. Suba o código para um repositório no GitHub
-2. Acesse [vercel.com](https://vercel.com) e conecte o repositório
-3. Clique em **Deploy** — pronto em segundos
-
-> **Opcional:** Adicione `GITHUB_TOKEN` nas variáveis de ambiente da Vercel para aumentar o rate limit da API do GitHub.
 
 ---
 
