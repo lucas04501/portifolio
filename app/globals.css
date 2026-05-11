@@ -1,0 +1,104 @@
+/* app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── DESIGN TOKENS ─────────────────────────────────── */
+:root {
+  --bg:        #080808;
+  --bg-2:      #0f0f0f;
+  --bg-3:      #161616;
+  --bg-4:      #1e1e1e;
+  --border:    #252525;
+  --border-2:  #2e2e2e;
+  --text-1:    #e8e8e2;
+  --text-2:    #a0a09a;
+  --text-3:    #5a5a54;
+  --accent:    #d4f564;
+  --accent-dim:#8fa83a;
+  --blue:      #4a9eff;
+  --radius:    12px;
+  --radius-sm: 8px;
+}
+
+/* ── BASE ───────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
+
+/* ── SELEÇÃO ────────────────────────────────────────── */
+::selection {
+  background: rgba(212, 245, 100, 0.2);
+  color: var(--accent);
+}
+
+/* ── ANIMAÇÕES GLOBAIS ──────────────────────────────── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.85); }
+}
+
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── UTILITÁRIOS ────────────────────────────────────── */
+@layer utilities {
+  .font-mono { font-family: var(--font-dm-mono), monospace; }
+
+  /* Texto com gradiente */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--text-1) 0%, var(--text-3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Label de seção */
+  .section-label {
+    @apply flex items-center gap-3 mb-12;
+  }
+  .section-label-line {
+    @apply w-6 h-px bg-accent;
+  }
+  .section-label-text {
+    @apply text-xs text-accent font-mono tracking-widest uppercase;
+  }
+
+  /* Skeleton loader */
+  .skeleton {
+    @apply bg-bg-3 rounded relative overflow-hidden;
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+}
