@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import { DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/config";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // DM Sans — elegante, moderna, levemente geométrica
 const dmSans = DM_Sans({
@@ -48,6 +50,8 @@ export default function RootLayout({
     <html lang="pt-BR" className="dark">
       <body className={`${dmSans.variable} ${dmMono.variable} font-sans`}>
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
