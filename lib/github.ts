@@ -92,7 +92,7 @@ export async function getGitHubData(): Promise<GitHubData> {
   const [user, allRepos] = await Promise.all([fetchUser(), fetchRepos()]);
 
   // Filtra forks e repos arquivados
-  const HIDDEN_REPOS = ["https---github.com-lucas04501-MyProductivityAPP", "lucas04501", "WebAPP", "MyProductivityAPP", "pytraining"];
+  const HIDDEN_REPOS = ["https---github.com-lucas04501-MyProductivityAPP", "lucas04501", "WebAPP", "MyProductivityAPP", "pytraining", "LENS"];
 
   const repos = allRepos
   .filter((r) => !r.fork && !r.archived)
