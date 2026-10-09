@@ -2,7 +2,8 @@
 // Layout raiz — define fontes, metadata e estrutura base da página
 
 import type { Metadata } from "next";
-import { DM_Sans, DM_Mono } from "next/font/google";
+import { DM_Sans, DM_Mono, Space_Grotesk } from "next/font/google";
+import { MotionProvider } from "@/components/MotionProvider";
 import "./globals.css";
 import { siteConfig } from "@/lib/config";
 import { Analytics } from "@vercel/analytics/react";
@@ -21,6 +22,14 @@ const dmMono = DM_Mono({
   subsets: ["latin"],
   weight: ["300", "400", "500"],
   variable: "--font-dm-mono",
+  display: "swap",
+});
+
+// Space Grotesk — display largo e geometrico, so para titulos (alternativas: Sora, Geist)
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -48,8 +57,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className="dark">
-      <body className={`${dmSans.variable} ${dmMono.variable} font-sans`}>
-        {children}
+      <body
+        className={`${dmSans.variable} ${dmMono.variable} ${spaceGrotesk.variable} font-sans`}
+      >
+        <a href="#conteudo" className="skip-link">
+          Pular para o conteúdo
+        </a>
+        <MotionProvider>{children}</MotionProvider>
         <Analytics />
         <SpeedInsights />
       </body>

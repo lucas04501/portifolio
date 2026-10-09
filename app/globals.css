@@ -3,25 +3,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── DESIGN TOKENS ─────────────────────────────────── */
+/* -- DESIGN TOKENS (espelham tailwind.config.ts; ver docs/design.md) -- */
 :root {
-  --bg:        #080808;
-  --bg-2:      #0f0f0f;
-  --bg-3:      #161616;
-  --bg-4:      #1e1e1e;
-  --border:    #252525;
-  --border-2:  #2e2e2e;
-  --text-1:    #e8e8e2;
-  --text-2:    #a0a09a;
-  --text-3:    #5a5a54;
-  --accent:    #d4f564;
-  --accent-dim:#8fa83a;
-  --blue:      #4a9eff;
-  --radius:    12px;
-  --radius-sm: 8px;
+  --bg:         #0B0D10;
+  --bg-2:       #12151A;
+  --bg-3:       #1A1E25;
+  --bg-4:       #222831;
+  --border:     #262C35;
+  --border-2:   #323A46;
+  --text-1:     #E8EAED;
+  --text-2:     #9AA3AF;
+  --text-3:     #8791A0;
+  --accent:     #8DB4E8;
+  --accent-dim: #6F95CC;
+  --radius:     12px;
+  --radius-sm:  8px;
 }
 
-/* ── BASE ───────────────────────────────────────────── */
+/* -- BASE -- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -30,29 +29,44 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* altura da navegacao fixa */
 }
 
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(1100px 560px at 78% -8%, rgba(141, 180, 232, 0.10), transparent 62%),
+    var(--bg);
+  background-repeat: no-repeat;
   color: var(--text-1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* ── SCROLLBAR ──────────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
-
-/* ── SELEÇÃO ────────────────────────────────────────── */
-::selection {
-  background: rgba(212, 245, 100, 0.2);
-  color: var(--accent);
+h1, h2, h3 {
+  font-family: var(--font-display), var(--font-dm-sans), sans-serif;
 }
 
-/* ── ANIMAÇÕES GLOBAIS ──────────────────────────────── */
+/* -- FOCO VISIVEL (teclado) -- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* -- SCROLLBAR -- */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2a313b; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #3a4351; }
+
+/* -- SELECAO -- */
+::selection {
+  background: rgba(141, 180, 232, 0.28);
+  color: var(--text-1);
+}
+
+/* -- ANIMACOES GLOBAIS -- */
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%       { opacity: 0.4; transform: scale(0.85); }
@@ -67,19 +81,61 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* ── UTILITÁRIOS ────────────────────────────────────── */
+/* Respeita a preferencia do sistema por menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* -- UTILITARIOS -- */
 @layer utilities {
   .font-mono { font-family: var(--font-dm-mono), monospace; }
 
+  /* Grade de cruzes "+" (motivo da identidade). Usar em elemento decorativo com aria-hidden. */
+  .plus-grid {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M28 23v10M23 28h10' stroke='%238DB4E8' stroke-opacity='0.22' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 35%, #000 25%, transparent 78%);
+    mask-image: radial-gradient(ellipse 75% 70% at 50% 35%, #000 25%, transparent 78%);
+  }
+
+  /* Painel de vidro (rotulos flutuantes, cartoes de base) */
+  .glass {
+    background: rgba(26, 30, 37, 0.58);
+    border: 1px solid rgba(141, 180, 232, 0.18);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+
+  /* Link "pular para o conteudo": visivel so com foco */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 100;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 600;
+    text-decoration: none;
+    transition: top 0.15s ease;
+  }
+  .skip-link:focus { top: 1rem; }
+
   /* Texto com gradiente */
   .text-gradient {
-    background: linear-gradient(135deg, var(--text-1) 0%, var(--text-3) 100%);
+    background: linear-gradient(135deg, var(--text-1) 0%, var(--accent) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Label de seção */
+  /* Label de secao */
   .section-label {
     @apply flex items-center gap-3 mb-12;
   }

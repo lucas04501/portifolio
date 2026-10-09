@@ -86,7 +86,7 @@ export function Hero({ totalRepos, totalStars }: HeroProps) {
         >
           <a
             href="#projetos"
-            className="inline-flex items-center gap-2 bg-accent text-bg text-sm font-semibold px-6 py-3 rounded-full no-underline hover:bg-[#c4e550] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(212,245,100,0.2)] transition-all duration-200"
+            className="inline-flex items-center gap-2 bg-accent text-bg text-sm font-semibold px-6 py-3 rounded-full no-underline hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(141,180,232,0.25)] transition-all duration-200"
           >
             Ver projetos →
           </a>

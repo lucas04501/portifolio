@@ -1,6 +1,6 @@
 # Design — direção visual e arquitetura
 
-Estado: **planejado**. Descreve o redesenho em curso; nada aqui está implementado ainda, salvo o que for indicado.
+Estado: **em andamento**. Implementado: tokens de cor, fontes, grade "+", foco visível, `prefers-reduced-motion`, link "pular para o conteúdo" e navegação (etapa 6). Ainda planejado: hero, seções e conteúdo no site (etapas 7 a 11).
 
 ## Direção visual
 Referência de direção artística: shot do Dribbble "AI SaaS Agent Landing — Futuristic Hero" (hero com tipografia gigante atravessada por um objeto central, rótulos de vidro flutuantes, cartões sobrepostos na base e grade de cruzes finas). Usada só como inspiração; não se reproduz objeto, texto nem layout.
@@ -11,8 +11,9 @@ Referência de direção artística: shot do Dribbble "AI SaaS Agent Landing —
 |---|---|
 | Fundo | Grafite (`#0B0D10`, `#12151A`, `#1A1E25`), gradiente radial frio, luz de borda pontual. Sem neon |
 | Acento | Azul-gelo `#8DB4E8`, único |
-| Texto | `#E8EAED` e `#9AA3AF`; contraste mínimo 4.5:1 (o cinza atual `#5a5a54` falha e sai) |
-| Tipografia | Display largo e leve + mono para metadados, via `next/font` (família a definir) |
+| Texto | `text-1 #E8EAED`, `text-2 #9AA3AF`, `text-3 #8791A0`. Contraste mínimo 4.6:1 sobre qualquer fundo (o `#5a5a54` antigo dava 2,1 a 2,8) |
+| Tipografia | Space Grotesk nos títulos (`font-display`), DM Sans no texto, DM Mono nos metadados, todas via `next/font`. Alternativas avaliadas: Sora e Geist |
+| Utilitários | `.plus-grid` (grade de cruzes, só em elemento decorativo com `aria-hidden`), `.glass` (painel de vidro), `.skip-link`, foco `:focus-visible` global |
 | Hero | Nome e papel em tipografia gigante, objeto próprio em SVG/canvas leve, etiquetas com fatos verificáveis, cartões de base com borda inclinada |
 | Movimento | Entrada escalonada curta e hover discreto; tudo respeita `prefers-reduced-motion` |
 | Evitar | Cartões idênticos repetidos, emoji como ícone, estatísticas decorativas, badges, 3D pesado |

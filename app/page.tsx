@@ -23,7 +23,7 @@ export default async function Home() {
   }
 
   return (
-    <main>
+    <main id="conteudo">
       <Nav />
       <Hero
         totalRepos={githubData?.user.public_repos ?? 0}

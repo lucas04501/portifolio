@@ -153,7 +153,7 @@ export function Contact() {
                   ? "bg-blue text-white"
                   : formState === "sending"
                   ? "bg-accent/60 text-bg cursor-wait"
-                  : "bg-accent text-bg hover:bg-[#c4e550] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(212,245,100,0.2)]"
+                  : "bg-accent text-bg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(141,180,232,0.25)]"
               }`}
             >
               {formState === "sent"

@@ -36,7 +36,7 @@ function ProjectCard({ repo, index }: { repo: GitHubRepo; index: number }) {
     >
       {/* Spotlight hover effect */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-        style={{ background: "radial-gradient(400px circle at var(--x, 50%) var(--y, 50%), rgba(212,245,100,0.04), transparent 60%)" }}
+        style={{ background: "radial-gradient(400px circle at var(--x, 50%) var(--y, 50%), rgba(141,180,232,0.06), transparent 60%)" }}
         onMouseMove={(e) => {
           const rect = e.currentTarget.parentElement!.getBoundingClientRect();
           e.currentTarget.style.setProperty("--x", `${e.clientX - rect.left}px`);

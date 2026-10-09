@@ -1,68 +1,140 @@
 "use client";
 // components/Nav.tsx
-// Navbar fixa com efeito de blur ao fazer scroll
+// Navegacao fixa: marca, links com secao ativa, CTA e menu acessivel no mobile.
 
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { siteConfig } from "@/lib/config";
+import { site } from "@/content";
+
+// Ordem igual a da pagina (Sobre, Tecnologias, Projetos, ..., Contato)
+const links = [
+  { id: "sobre", label: "Sobre" },
+  { id: "tech", label: "Tecnologias" },
+  { id: "projetos", label: "Projetos" },
+] as const;
+
+const observed = ["sobre", "tech", "projetos", "github", "contato"];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Marca a secao que ocupa a faixa central da tela
+  useEffect(() => {
+    const sections = observed
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => e.isIntersecting && setActive(e.target.id));
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    sections.forEach((s) => io.observe(s));
+    return () => io.disconnect();
+  }, []);
+
+  // Esc fecha o menu e devolve o foco ao botao
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  const linkClass = (id: string) =>
+    `text-[13px] no-underline px-3 py-2 rounded-full transition-colors duration-200 font-mono ${
+      active === id ? "text-text-1 bg-bg-3" : "text-text-2 hover:text-text-1 hover:bg-bg-3"
+    }`;
+
   return (
-    <motion.nav
+    <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+        scrolled || open
           ? "bg-bg/85 backdrop-blur-xl border-b border-border"
           : "bg-transparent border-b border-transparent"
       }`}
     >
-      <div className="max-w-[900px] mx-auto px-6 py-5 flex items-center justify-between">
-        {/* Logo */}
+      <nav aria-label="Principal" className="max-w-[1100px] mx-auto px-6 py-4 flex items-center justify-between">
         <a
           href="#hero"
-          className="text-[15px] font-medium text-text-1 no-underline tracking-tight"
+          className="inline-flex items-center gap-2.5 text-[15px] font-medium text-text-1 no-underline tracking-tight font-display"
         >
-          {siteConfig.github}
-          <span className="text-accent">.</span>dev
+          <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5 text-accent" fill="none">
+            <path d="M12 4v16M4 12h16" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+          </svg>
+          {site.name}
         </a>
 
-        {/* Links */}
-        <div className="flex items-center gap-2">
-          {[
-            { label: "sobre", href: "#sobre" },
-            { label: "stack", href: "#tech" },
-            { label: "projetos", href: "#projetos" },
-            { label: "contato", href: "#contato" },
-          ].map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="hidden sm:block text-[13px] text-text-2 no-underline px-3 py-1.5 rounded-full hover:text-text-1 hover:bg-bg-3 transition-all duration-200 font-mono"
-            >
-              {link.label}
-            </a>
-          ))}
+        <div className="flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-1">
+            {links.map((l) => (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                aria-current={active === l.id ? "location" : undefined}
+                className={linkClass(l.id)}
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
 
           <a
-            href={siteConfig.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[13px] font-semibold text-bg bg-accent px-4 py-1.5 rounded-full no-underline hover:bg-[#c4e550] hover:-translate-y-px transition-all duration-200 ml-2"
+            href="#contato"
+            className="hidden md:inline-flex text-[13px] font-semibold text-bg bg-accent px-4 py-2 rounded-full no-underline hover:bg-accent-hover transition-colors duration-200 ml-2"
           >
-            GitHub ↗
+            Contato
           </a>
+
+          <button
+            ref={toggleRef}
+            type="button"
+            className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full text-text-1 border border-border-2 bg-bg-3"
+            aria-expanded={open}
+            aria-controls="menu-mobile"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 8h16M4 16h16" />}
+            </svg>
+          </button>
         </div>
-      </div>
-    </motion.nav>
+      </nav>
+
+      {open && (
+        <div id="menu-mobile" className="md:hidden border-t border-border px-6 pb-5 pt-3 flex flex-col gap-1">
+          {[...links, { id: "contato", label: "Contato" }].map((l) => (
+            <a
+              key={l.id}
+              href={`#${l.id}`}
+              onClick={() => setOpen(false)}
+              aria-current={active === l.id ? "location" : undefined}
+              className={`${linkClass(l.id)} text-[15px] py-3`}
+            >
+              {l.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </motion.header>
   );
 }
