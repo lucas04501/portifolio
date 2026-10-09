@@ -1,82 +1,75 @@
-"use client";
 // components/Tech.tsx
+// Tecnologias por nivel de evidencia: o que ja usei em projetos x o que estou estudando.
+// Tudo vem de content/skills.ts (cada item tem fonte). Sem icones: nada de marca aproximada.
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { siteConfig } from "@/lib/config";
-
-type TechItem = { name: string; icon: string };
-
-function TechItemCard({ tech, delay }: { tech: TechItem; delay: number }) {
-  const isSvg = tech.icon.trimStart().startsWith("<svg");
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="bg-bg-3 border border-border rounded-xl px-3 py-4 text-center hover:bg-bg-4 hover:border-border-2 hover:-translate-y-0.5 transition-all duration-200 cursor-default group flex flex-col items-center gap-2"
-    >
-      {isSvg ? (
-        <div
-          className="w-6 h-6 [&>svg]:w-full [&>svg]:h-full"
-          dangerouslySetInnerHTML={{ __html: tech.icon }}
-        />
-      ) : (
-        <span className="text-xl leading-none">{tech.icon}</span>
-      )}
-      <span className="text-[11px] text-text-3 font-mono group-hover:text-text-2 transition-colors leading-tight">
-        {tech.name}
-      </span>
-    </motion.div>
-  );
-}
-
-function TechCategory({
-  title,
-  items,
-  baseDelay = 0,
-}: {
-  title: string;
-  items: readonly TechItem[];
-  baseDelay?: number;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.15 });
-
-  return (
-    <div ref={ref}>
-      <p className="text-[13px] font-medium text-text-2 mb-3 font-mono tracking-widest uppercase">
-        {title}
-      </p>
-      <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-7 gap-2">
-        {items.map((tech, i) =>
-          isInView ? (
-            <TechItemCard key={tech.name} tech={tech} delay={baseDelay + i * 0.05} />
-          ) : (
-            <div key={tech.name} className="bg-bg-3 border border-border rounded-xl h-[84px]" />
-          )
-        )}
-      </div>
-    </div>
-  );
-}
+import { skillGroups } from "@/content";
 
 export function Tech() {
   return (
-    <section id="tech" className="py-28 bg-bg-2 border-y border-border">
-      <div className="max-w-[900px] mx-auto px-6">
-        <div className="section-label">
-          <div className="section-label-line" />
-          <span className="section-label-text">stack técnica</span>
+    <section id="tech" aria-labelledby="tech-title" className="py-28">
+      <div className="max-w-[1280px] mx-auto px-6">
+        <div className="scroll-reveal max-w-[720px]">
+          <div className="section-label">
+            <div className="section-label-line" />
+            <span className="section-label-text">tecnologias</span>
+          </div>
+          <h2
+            id="tech-title"
+            className="font-display text-[clamp(32px,5vw,60px)] font-light leading-[1.05] tracking-[-0.03em]"
+          >
+            Tecnologias, por <strong className="font-medium text-gradient">evidência</strong>
+          </h2>
+          <p className="mt-5 text-[16px] md:text-[17px] text-text-2 leading-relaxed">
+            Separo o que já usei nos meus projetos do que ainda estou estudando, e digo onde usei.
+          </p>
         </div>
-        <div className="flex flex-col gap-10">
-          <TechCategory title="Frontend"              items={siteConfig.tech.frontend} baseDelay={0}    />
-          <TechCategory title="Backend"               items={siteConfig.tech.backend}  baseDelay={0.05} />
-          <TechCategory title="IA & Automação"        items={siteConfig.tech.ai}       baseDelay={0.1}  />
-          <TechCategory title="Infra & DevOps"        items={siteConfig.tech.devops}   baseDelay={0.15} />
-          <TechCategory title="Pagamentos & Serviços" items={siteConfig.tech.services} baseDelay={0.2}  />
+
+        <div className="mt-14 grid md:grid-cols-2 xl:grid-cols-3 gap-x-12 gap-y-14">
+          {skillGroups.map((group) => (
+            <div key={group.id} className="scroll-reveal">
+              <h3 className="text-[12px] font-mono text-text-3 uppercase tracking-widest mb-4">
+                {group.label}
+              </h3>
+              <ul className="divide-y divide-border border-y border-border">
+                {group.items.map((item) => (
+                  <li
+                    key={item.name}
+                    className="py-3.5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
+                  >
+                    <span className="flex items-center gap-2.5 text-[16px] text-text-1">
+                      <span
+                        aria-hidden="true"
+                        className={
+                          item.level === "projetos"
+                            ? "w-1.5 h-1.5 rounded-full bg-accent shrink-0"
+                            : "w-1.5 h-1.5 rounded-full border border-accent-dim shrink-0"
+                        }
+                      />
+                      {item.name}
+                      {item.level === "estudando" && (
+                        <span className="text-[11px] font-mono text-accent border border-accent-dim/60 rounded-full px-2 py-0.5">
+                          estudando
+                        </span>
+                      )}
+                    </span>
+                    <span className="text-[13px] text-text-3 leading-snug">{item.evidence}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
+
+        <p className="scroll-reveal mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-text-3">
+          <span className="inline-flex items-center gap-2">
+            <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-accent" />
+            usei em projetos
+          </span>
+          <span className="inline-flex items-center gap-2">
+            <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full border border-accent-dim" />
+            estou estudando
+          </span>
+        </p>
       </div>
     </section>
   );

@@ -1,13 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "avatars.githubusercontent.com",
-      },
-    ],
-  },
-};
+// Sem imagens remotas: as capturas dos projetos ficam em public/projects/.
+const nextConfig = {};
 
 module.exports = nextConfig;

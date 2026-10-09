@@ -1,104 +1,98 @@
-<div align="center">
+# Portfólio · Lucas Pereira
 
-<img src="https://readme-typing-svg.herokuapp.com?font=DM+Sans&size=32&duration=3000&pause=1000&color=D4F564&center=true&vCenter=true&width=500&lines=Lucas+Pereira;Fullstack+Developer" alt="Typing SVG" />
+Portfólio pessoal de **Lucas Pereira**, estudante de Engenharia de Software (Univassouras) e desenvolvedor full stack em formação, em busca de estágio em tecnologia.
 
-<p align="center">
-  <a href="https://www.linkedin.com/in/lucaspds9/" target="_blank">
-    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />
-  </a>
-  <a href="https://github.com/lucas04501" target="_blank">
-    <img src="https://img.shields.io/badge/GitHub-161b22?style=for-the-badge&logo=github&logoColor=white" />
-  </a>
-  <a href="mailto:lucaspds9@hotmail.com">
-    <img src="https://img.shields.io/badge/Email-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white" />
-  </a>
-</p>
+**Site:** <https://portifolio-nine-livid-23.vercel.app>
 
-</div>
+![Página inicial do portfólio: as palavras Planejar e Executar atravessadas por uma esfera de cruzes e rótulos com os projetos](docs/preview.jpg)
 
----
+## O que é
 
-![Portfolio Preview](https://raw.githubusercontent.com/lucas04501/portifolio/main/preview.png)
+Uma página única, em português, que apresenta quem sou, os projetos que construí e o que já usei em cada um. A ideia central é a **honestidade do conteúdo**: nada é exibido sem uma fonte (currículo, repositório público, página publicada do projeto ou confirmação minha). Por isso o site não promete experiência profissional que não tenho, não lista tecnologias que nunca usei e não mostra métricas decorativas.
 
-> **Note:** Para adicionar a imagem de preview, tire um screenshot do portfólio rodando em `localhost:3000`, salve como `preview.png` na raiz do projeto e faça commit. A imagem aparecerá automaticamente aqui.
+Seções: **Hero**, **Sobre**, **Projetos** (estudos de caso), **Tecnologias** (separadas entre "usei em projetos" e "estudando"), **Trajetória** (formação, cursos e idiomas) e **Contato** (e-mail e links, sem formulário).
 
----
+A direção visual é grafite com azul-gelo e uma grade de cruzes "+" como motivo. Foi inspirada, apenas como direção artística, no shot "AI SaaS Agent Landing — Futuristic Hero" do Dribbble; nenhum elemento foi copiado.
 
-## ✨ Funcionalidades
+## Tecnologias
 
-- 🌙 **Dark mode elegante** — inspirado em Vercel, Linear e Apple
-- 📦 **Projetos do GitHub** — carregados automaticamente via GitHub API
-- 📊 **Estatísticas em tempo real** — repos, stars e linguagens mais usadas
-- 🎞️ **Animações suaves** — Framer Motion com física natural
-- 📱 **100% responsivo** — mobile, tablet e desktop
-- ⚡ **SSR + cache** — sem loading no cliente, dados frescos a cada hora
-- 🔎 **SEO otimizado** — metadata, Open Graph e Twitter Cards
-
----
-
-## 🛠️ Stack
-
-| Camada | Tecnologias |
+| Uso | O que |
 |---|---|
-| **Frontend** | Next.js 15, React 19, TypeScript, Tailwind CSS, Framer Motion |
-| **Backend** | Python, Flask, Supabase, PostgreSQL, REST API |
-| **IA & Automação** | Gemini AI, OpenAI, Claude AI |
-| **Infra & DevOps** | Vercel, Git, GitHub, Linux |
-| **Pagamentos** | Stripe, Resend |
+| Framework | Next.js 15 (App Router) e React 19, com Server Components |
+| Linguagem | TypeScript |
+| Estilo | Tailwind CSS 3 e variáveis CSS (tokens de cor em `tailwind.config.ts` e `app/globals.css`) |
+| Fontes | `next/font` com Space Grotesk (títulos), DM Sans (texto) e DM Mono (rótulos) |
+| Imagens | `next/image` para as capturas dos projetos; `next/og` para a imagem de compartilhamento e o ícone do iOS |
+| Animação | CSS puro (entradas e rolagem) e um canvas 2D próprio para a esfera do hero, sem biblioteca de animação nem three.js |
+| Qualidade | ESLint 9 (`next/core-web-vitals` e `next/typescript`) |
+| Hospedagem e métricas | Vercel, com `@vercel/analytics` e `@vercel/speed-insights` |
 
----
+## Como rodar
 
-## 🚀 Como rodar localmente
-
-**Pré-requisitos:** Node.js 18+
+Requer Node.js 20.11 ou superior. O Next.js aceita a partir do 18.18, mas o `eslint.config.mjs` usa `import.meta.dirname`, que só existe a partir do 20.11.
 
 ```bash
-# 1. Clone o repositório
-git clone https://github.com/lucas04501/portifolio.git
-cd portifolio
-
-# 2. Instale as dependências
 npm install
-
-# 3. Rode em desenvolvimento
-npm run dev
+npm run dev      # http://localhost:3000
 ```
 
-Acesse **http://localhost:3000** 🎉
+Outros comandos:
 
 ```bash
-# Build de produção
-npm run build && npm start
+npm run build    # build de produção
+npm start        # serve o build
+npm run lint     # ESLint
 ```
 
----
+Não há testes automatizados.
 
-## 📁 Estrutura
+### Variáveis de ambiente (opcionais)
+
+Copie `.env.example` para `.env.local` se quiser usar alguma. Sem elas, o site funciona.
+
+| Variável | Para quê |
+|---|---|
+| `GITHUB_TOKEN` | Eleva o limite da API do GitHub (de 60 requisições por hora). Use um token com o **menor escopo possível** (leitura de dados públicos). Nunca versione. |
+| `NEXT_PUBLIC_SITE_URL` | URL pública do site (canonical, Open Graph, sitemap). Sem ela vale o endereço atual na Vercel. |
+
+## Estrutura
 
 ```
-portifolio/
-├── app/
-│   ├── layout.tsx          # Fontes, metadata e estrutura base
-│   ├── page.tsx            # Página principal (Server Component)
-│   └── globals.css         # Design tokens e estilos globais
-├── components/
-│   ├── Nav.tsx             # Navbar fixa com blur ao scroll
-│   ├── Hero.tsx            # Seção principal com stats do GitHub
-│   ├── About.tsx           # Sobre mim + cards de diferenciais
-│   ├── Tech.tsx            # Stack técnica com ícones SVG
-│   ├── Projects.tsx        # Projetos do GitHub com filtros
-│   ├── GitHubSection.tsx   # Perfil GitHub + barras de linguagem
-│   ├── Contact.tsx         # Formulário + links de contato
-│   └── Footer.tsx          # Rodapé
-├── lib/
-│   ├── github.ts           # Fetch da GitHub API com cache
-│   └── config.ts           # ✏️ Seus dados pessoais
-└── types/
-    └── github.ts           # Tipos TypeScript para a API
+app/            layout (metadados e dados estruturados), página, sitemap, robots, imagem de compartilhamento e ícones
+components/     seções e peças de interface (Server Components; só Nav, HeroSphere e PlusSphere rodam no cliente)
+content/        todo o texto e os dados exibidos, com a fonte de cada item
+lib/            busca de repositórios no GitHub (getRepos), junção com os projetos curados e URL do site
+public/         capturas das páginas dos projetos (public/projects)
+types/          tipos da resposta da API do GitHub
+docs/           notas de design (design.md) e a imagem de pré-visualização
 ```
 
----
+### Como atualizar o conteúdo
 
-<div align="center">
-  <sub>Feito com 💚 por <a href="https://github.com/lucas04501">Lucas Pereira</a></sub>
-</div>
+O conteúdo fica em `content/`, não nos componentes:
+
+- `site.ts`: identidade, texto do hero, SEO, contatos e como trabalho.
+- `projects.ts`: projetos exibidos. Cada um traz problema, destaques técnicos, stack, links e status (`publicado`, `em-desenvolvimento`, `so-codigo` ou `estudo-nao-publicado`). Um projeto só aparece se `visible: true`.
+- `skills.ts`: tecnologias, cada uma com o nível (`projetos` ou `estudando`) e onde foi usada.
+- `timeline.ts`: formação, cursos e idiomas.
+
+Todo item precisa declarar de onde veio a informação no campo `source` (o TypeScript recusa um item sem fonte). O GitHub **não decide** o que aparece; ele só complementa os projetos com a data do último envio de código, e se a API falhar o site continua funcionando.
+
+## Qualidade medida
+
+Lighthouse 12 em build de produção local, em 2026-10-09:
+
+| | Desempenho | Acessibilidade | Boas práticas | SEO |
+|---|---|---|---|---|
+| Celular | 95 | 100 | 96 | 100 |
+| Desktop | 100 | 100 | 96 | 100 |
+
+As boas práticas perdem pontos só pelos scripts do Vercel Analytics, que não existem fora da Vercel. O site também respeita `prefers-reduced-motion`, tem navegação completa por teclado, link para pular ao conteúdo, contraste mínimo de 4.5:1 e o texto principal visível antes do JavaScript carregar.
+
+## Publicação
+
+O site é publicado na Vercel. Alterações só vão ao ar depois de revisadas e aprovadas; o trabalho de desenvolvimento acontece em branches.
+
+## Contato
+
+Os contatos estão na própria página: <https://portifolio-nine-livid-23.vercel.app/#contato>. Também em [GitHub](https://github.com/lucas04501) e [LinkedIn](https://www.linkedin.com/in/lucaspds9/).

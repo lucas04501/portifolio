@@ -1,19 +1,5 @@
 // types/github.ts
-// Tipos TypeScript para as respostas da GitHub API
-
-export interface GitHubUser {
-  login: string;
-  name: string | null;
-  avatar_url: string;
-  bio: string | null;
-  html_url: string;
-  public_repos: number;
-  followers: number;
-  following: number;
-  location: string | null;
-  blog: string | null;
-  company: string | null;
-}
+// Tipo da resposta da GitHub API usado para enriquecer os projetos curados
 
 export interface GitHubRepo {
   id: number;
@@ -29,22 +15,11 @@ export interface GitHubRepo {
   topics: string[];
   fork: boolean;
   archived: boolean;
+  /** Muda com estrelas, descricao e configuracoes: nao use como data do codigo */
   updated_at: string;
+  /** Data do ultimo push, ou seja, do ultimo envio de codigo */
+  pushed_at: string | null;
   created_at: string;
   open_issues_count: number;
   visibility: string;
-}
-
-export interface LanguageStat {
-  name: string;
-  count: number;
-  percentage: number;
-  color: string;
-}
-
-export interface GitHubData {
-  user: GitHubUser;
-  repos: GitHubRepo[];
-  languageStats: LanguageStat[];
-  totalStars: number;
 }

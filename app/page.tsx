@@ -1,43 +1,33 @@
 // app/page.tsx
-// Página principal — Server Component
-// Busca dados do GitHub no servidor (SSR com cache) e passa para os componentes
+// Pagina principal — Server Component.
+// O conteudo vem de content/ (curado). O GitHub so complementa os projetos.
+// Nav (banner) e Footer (contentinfo) ficam fora do <main> para manterem seus papeis.
 
-import { getGitHubData } from "@/lib/github";
+import { getRepos } from "@/lib/github";
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
-import { Tech } from "@/components/Tech";
 import { Projects } from "@/components/Projects";
-import { GitHubSection } from "@/components/GitHubSection";
+import { Tech } from "@/components/Tech";
+import { Journey } from "@/components/Journey";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
 export default async function Home() {
-  // Busca dados do GitHub no servidor — sem loading state no cliente
-  // Em caso de erro, retorna dados vazios e o site continua funcionando
-  let githubData = null;
-  try {
-    githubData = await getGitHubData();
-  } catch (error) {
-    console.error("Failed to fetch GitHub data:", error);
-  }
+  const repos = await getRepos();
 
   return (
-    <main>
+    <>
       <Nav />
-      <Hero
-        totalRepos={githubData?.user.public_repos ?? 0}
-        totalStars={githubData?.totalStars ?? 0}
-      />
-      <About />
-      <Tech />
-      <Projects repos={githubData?.repos ?? []} />
-      <GitHubSection
-        user={githubData?.user ?? null}
-        languageStats={githubData?.languageStats ?? []}
-      />
-      <Contact />
+      <main id="conteudo">
+        <Hero />
+        <About />
+        <Projects repos={repos} />
+        <Tech />
+        <Journey />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
