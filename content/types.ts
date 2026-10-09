@@ -7,14 +7,29 @@ export type Source =
   | "repositorio" // README/código de repositório público dele
   | "perfil-github" // README do perfil lucas04501/lucas04501
   | "confirmado" // confirmado por ele em conversa (2026-10-09)
+  | "demo-publica" // site publicado do projeto, aberto e conferido em 2026-10-09
 
 export type Sources = readonly [Source, ...Source[]]
 
-export type ProjectStatus = "publicado" | "em-desenvolvimento" | "estudo-nao-publicado"
+export type ProjectStatus =
+  | "publicado"
+  | "em-desenvolvimento"
+  | "so-codigo" // repositorio publico, sem demonstracao no ar
+  | "estudo-nao-publicado"
+
+export interface ProjectImage {
+  src: string
+  alt: string
+  width: number
+  height: number
+}
 
 export interface Project {
   slug: string
   name: string
+  /** Tipo de projeto, em poucas palavras (ex.: "Aplicativo web") */
+  kind: string
+  image?: ProjectImage
   /** Posição no destaque do site; ausente = projeto secundário */
   featured?: 1 | 2 | 3
   status: ProjectStatus

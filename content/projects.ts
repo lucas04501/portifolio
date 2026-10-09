@@ -1,5 +1,6 @@
 // content/projects.ts
 // Projetos exibidos, curados à mão. A API do GitHub só complementa (lib/projects.ts).
+// LENS e Vire a Chave: páginas públicas abertas e conferidas em 2026-10-09 ("demo-publica").
 // Dos READMEs públicos: reconferir no código antes de publicar.
 // Fora do site por decisão do Lucas: ReputaçãoAI, Ritmo e os repositórios de estudo.
 
@@ -9,18 +10,25 @@ export const projects: readonly Project[] = [
   {
     slug: "lens",
     name: "LENS",
+    kind: "Aplicativo web",
     featured: 1,
     status: "publicado",
     visible: true,
+    image: {
+      src: "/projects/lens.jpg",
+      alt: "Página inicial do LENS: título \"Master Your Mind\" e um painel de exemplo com sequência de dias, XP, hábitos do dia e desempenho semanal.",
+      width: 1440,
+      height: 900,
+    },
     summary:
-      "Sistema de produtividade para organizar rotinas, hábitos e tarefas, com quadro Kanban, foco e gamificação.",
+      "Sistema de produtividade que reúne hábitos, tarefas em quadro Kanban, rotina semanal, metas e foco, com gamificação.",
     problem:
-      "Transformar hábitos e sessões de foco em um sistema diário mensurável, que eu uso para mim e quero abrir para outras pessoas.",
+      "Transformar disciplina em um sistema diário mensurável. Eu uso o LENS para mim e quero abri-lo para outras pessoas que também querem organizar a vida.",
     highlights: [
-      "Hábitos com sequência (streak), categorias e mapa de consistência do ano",
-      "Gamificação por XP, com sete níveis",
-      "Temporizador de foco com modos Deep Work, Pomodoro, Flow e Estudo",
-      "Painel de análises com gráficos e paleta de comandos (Ctrl+K)",
+      "Hábitos com check-in diário, sequência (streak) e mapa de calor mensal",
+      "Quadro Kanban com tarefas arrastáveis e checklists",
+      "Rotina semanal em blocos de tempo e metas no sistema dos 90 dias",
+      "Timer de foco (Pomodoro, 90 minutos ou Flow) que gera XP, e 7 níveis de INITIATE a TRANSCENDENT",
       "Cadastro de usuários e banco de dados próprios; planejamento, desenvolvimento, testes e publicação feitos por mim",
     ],
     stack: [
@@ -38,36 +46,45 @@ export const projects: readonly Project[] = [
       repo: "https://github.com/lucas04501/LENSAPP",
     },
     repoName: "LENSAPP",
-    pending: ["Abrir e testar a demo", "Captura de tela", "Confirmar que o roadmap do README reflete o estado real"],
-    source: ["curriculo", "repositorio", "confirmado"],
+    pending: ["Confirmar que o roadmap do README reflete o estado real", "Capturas das telas internas (hoje só a página inicial)"],
+    source: ["curriculo", "repositorio", "demo-publica", "confirmado"],
   },
   {
     slug: "vire-a-chave",
     name: "Vire a Chave",
+    kind: "Produto digital",
     featured: 2,
     status: "publicado",
     visible: true,
+    image: {
+      src: "/projects/vire-a-chave.jpg",
+      alt: "Página de venda do e-book Vire a Chave: título em serifa, chamada para o e-book e números de capítulos e gráficos.",
+      width: 1440,
+      height: 900,
+    },
     summary:
-      "E-book de autodesenvolvimento, com página própria de apresentação e venda, pagamento via Kiwify.",
+      "E-book de autodesenvolvimento com página própria de apresentação e venda, e pagamento pelo Kiwify.",
     problem:
-      "Reunir o que aprendi em livros, hábitos que funcionaram e estudos de neurociência em um material que ajude outras pessoas a organizar a vida.",
+      "Reunir em um material só o que aprendi em livros, hábitos que funcionaram e estudos de neurociência, para ajudar outras pessoas a sair do loop e organizar a vida.",
     highlights: [
-      "Conteúdo autoral baseado em livros lidos, hábitos e estudos de neurociência",
+      "9 capítulos, de clareza e neurociência dos hábitos a rotina, ferramentas e metas de 90 dias",
+      "6 gráficos e diagramas e exercícios práticos",
       "Página de venda com compra direta pelo cliente e integração de pagamentos (Kiwify)",
-      "Objetivo em desenvolvimento: ligar o e-book ao aplicativo LENS, para viver e compartilhar o método",
+      "Em desenvolvimento: ligar o e-book ao LENS, para viver o método no aplicativo e compartilhar a experiência",
     ],
     stack: ["Página de venda", "Kiwify", "Vercel"],
     links: { demo: "https://vire-a-chave.vercel.app" },
     pending: [
-      "Abrir e testar a página de venda",
       "Corrigir no currículo a frase sobre 'sistema de pagamento próprio' (é o Kiwify)",
       "Integração com o LENS: exibir sempre como objetivo, nunca como pronto",
+      "Preço, garantia e promessas comerciais ficam fora do portfólio",
     ],
-    source: ["curriculo", "confirmado"],
+    source: ["curriculo", "demo-publica", "confirmado"],
   },
   {
     slug: "flowfin",
     name: "FlowFin",
+    kind: "Aplicativo web",
     featured: 3,
     status: "em-desenvolvimento",
     visible: false, // sem README no repositório; só aparece depois de documentado
@@ -86,8 +103,9 @@ export const projects: readonly Project[] = [
   },
   {
     slug: "e-commerce",
-    name: "E-commerce (API)",
-    status: "publicado",
+    name: "API de e-commerce",
+    kind: "API em Python",
+    status: "so-codigo",
     visible: true,
     summary: "API de uma loja virtual em Python e Flask: login, catálogo, carrinho e finalização de compra.",
     problem: "Praticar o desenho de uma API completa e documentada, do cadastro de produtos ao checkout.",
@@ -109,6 +127,7 @@ export const projects: readonly Project[] = [
   {
     slug: "barbearia",
     name: "SaaS de barbearia",
+    kind: "Estudo em Fastify",
     status: "estudo-nao-publicado",
     visible: true,
     summary:
