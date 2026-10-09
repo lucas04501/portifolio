@@ -1,128 +1,163 @@
-"use client";
 // components/Hero.tsx
-// Seção principal com headline animada, CTA e estatísticas do GitHub
+// Hero: palavras gigantes atravessadas por um objeto central, rotulos de vidro com fatos
+// verificaveis e cartoes sobrepostos na base. Todo texto vem de content/ (com fonte).
 
-import { motion } from "framer-motion";
-import { siteConfig } from "@/lib/config";
+import { HeroSphere } from "@/components/HeroSphere";
+import { site, contacts } from "@/content";
 
-interface HeroProps {
-  totalRepos: number;
-  totalStars: number;
-}
+// Atraso de entrada por elemento (CSS .reveal em globals.css)
+const delay = (s: number) => ({ "--d": `${s}s` }) as React.CSSProperties;
 
-// Variante de animação reutilizável para os elementos do Hero
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (delay = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const },
-  }),
-};
+// Rotulos flutuantes: somente fatos presentes em content/ (LENS, Vire a Chave, Univassouras)
+const labels = [
+  {
+    title: "LENS",
+    text: "Produtividade, hábitos e foco · publicado",
+    pos: "md:left-[1%] md:top-[3%]",
+    line: "md:left-full md:top-1/2 md:w-28",
+  },
+  {
+    title: "Vire a Chave",
+    text: "E-book de autodesenvolvimento · Kiwify",
+    pos: "md:right-[1%] md:top-[3%]",
+    line: "md:right-full md:top-1/2 md:w-28 md:rotate-180",
+  },
+  {
+    title: "Univassouras",
+    text: "Engenharia de Software · 2º período",
+    pos: "md:left-[6%] md:bottom-[3%]",
+    line: "md:left-full md:top-1/2 md:w-28",
+  },
+] as const;
 
-export function Hero({ totalRepos, totalStars }: HeroProps) {
+const social = contacts.filter((c) => c.label !== "E-mail");
+
+export function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center relative overflow-hidden"
+      aria-labelledby="hero-title"
+      className="relative isolate overflow-hidden pt-24"
     >
-      {/* Glows de fundo */}
-      <div className="absolute -top-48 -right-24 w-[600px] h-[600px] rounded-full bg-accent/[0.06] blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-24 -left-36 w-[500px] h-[500px] rounded-full bg-blue/[0.05] blur-3xl pointer-events-none" />
+      <div aria-hidden="true" className="plus-grid absolute inset-0 -z-10" />
 
-      <div className="max-w-[900px] mx-auto px-6 relative z-10 w-full py-32">
-        {/* Badge de disponibilidade */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={0}
-          className="inline-flex items-center gap-2 bg-bg-3 border border-border-2 rounded-full px-3 py-1.5 mb-8"
+      <div className="relative max-w-[1280px] mx-auto px-6 pt-8 md:pt-12">
+        <p className="rise inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-[12px] font-mono text-text-2"
         >
-          <span
-            className="w-2 h-2 rounded-full bg-accent"
-            style={{ animation: "pulse-dot 2s infinite" }}
-          />
-          <span className="text-xs text-text-2 font-mono">
-            {siteConfig.available ? "disponível para projetos" : "não disponível no momento"}
-          </span>
-        </motion.div>
+          <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-accent" />
+          {site.seeking}
+        </p>
 
-        {/* Headline */}
-        <motion.h1
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={0.1}
-          className="text-[clamp(44px,7vw,76px)] font-light leading-[1.06] tracking-[-2.5px] mb-6"
-        >
-          Construindo
-          <br />
-          <strong className="font-semibold text-text-1">experiências</strong>
-          <br />
-          <span className="text-accent">digitais</span> com
-          <br />
-          propósito.
-        </motion.h1>
-
-        {/* Subtítulo */}
-        <motion.p
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={0.2}
-          className="text-[17px] text-text-2 max-w-[480px] leading-[1.7] mb-10 font-light"
-        >
-          {siteConfig.description}
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={0.3}
-          className="flex items-center gap-3 flex-wrap"
-        >
-          <a
-            href="#projetos"
-            className="inline-flex items-center gap-2 bg-accent text-bg text-sm font-semibold px-6 py-3 rounded-full no-underline hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(141,180,232,0.25)] transition-all duration-200"
+        {/* Palco: palavras gigantes + esfera + rotulos */}
+        <div className="relative mt-6 md:mt-0">
+          <div className="relative flex flex-col justify-center min-h-[min(100vw,400px)] md:min-h-[600px]">
+          <h1 id="hero-title" className="rise relative z-0 font-display uppercase font-light leading-[0.84] tracking-[-0.045em] text-[clamp(52px,13.2vw,208px)] select-none"
           >
-            Ver projetos →
-          </a>
-          <a
-            href="#contato"
-            className="inline-flex items-center gap-2 bg-transparent text-text-2 text-sm px-6 py-3 rounded-full border border-border-2 no-underline hover:text-text-1 hover:border-border hover:bg-bg-3 transition-all duration-200"
-          >
-            Entrar em contato
-          </a>
-        </motion.div>
+            <span className="sr-only">
+              {site.name}: {site.role}. Planejar e executar.
+            </span>
+            <span aria-hidden="true" className="block">
+              Planejar
+            </span>
+            <span aria-hidden="true" className="block text-right text-gradient">
+              Executar
+            </span>
+          </h1>
 
-        {/* Stats do GitHub */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={0.4}
-          className="flex items-center gap-8 flex-wrap mt-16 pt-12 border-t border-border"
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center"
+          >
+            <HeroSphere className="w-[min(92vw,640px)] aspect-square" />
+          </div>
+
+          </div>
+
+          {/* Rotulos: lista simples no celular, flutuantes ligados ao objeto no desktop */}
+          <ul className="z-20 mt-8 grid gap-3 sm:grid-cols-3 md:mt-0 md:block md:static">
+            {labels.map((l, i) => (
+              <li key={l.title} style={delay(0.45 + i * 0.12)} className={`reveal glass rounded-2xl px-4 py-3 md:absolute md:w-[250px] ${l.pos}`}
+              >
+                <p className="font-display text-[15px] font-medium text-text-1">{l.title}</p>
+                <p className="text-[12px] text-text-2 leading-snug mt-0.5">{l.text}</p>
+                <span
+                  aria-hidden="true"
+                  className={`hidden md:block absolute h-px bg-gradient-to-r from-accent/60 to-transparent ${l.line}`}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <p style={delay(0.3)} className="reveal relative z-20 max-w-[560px] mt-10 text-[16px] md:text-[17px] leading-relaxed text-text-2"
         >
-          <Stat value={totalRepos} label="repositórios" />
-          <Stat value={totalStars} label="stars no GitHub" />
-          <Stat value={siteConfig.yearsOfExperience} label="anos de experiência" />
-        </motion.div>
+          {site.heroLead}
+        </p>
+      </div>
+
+      {/* Cartoes sobrepostos na base (borda superior inclinada no desktop) */}
+      <div className="relative z-20 max-w-[1280px] mx-auto px-6 mt-14 md:mt-16">
+        <div className="grid md:grid-cols-[1fr_1.15fr_1fr] gap-3 md:gap-0 md:items-end">
+          <div className="rounded-2xl md:rounded-none bg-bg-2 border border-border md:border-0 p-6 md:pt-14 md:pb-8 md:[clip-path:polygon(0_14%,100%_0,100%_100%,0_100%)]">
+            <p className="text-[12px] font-mono text-text-3 uppercase tracking-widest">Sobre</p>
+            <p className="mt-3 text-[15px] text-text-2 leading-relaxed">
+              Software para a minha própria produção e para ajudar outras pessoas: PWAs, SaaS e
+              automações com IA.
+            </p>
+            <a
+              href="#sobre"
+              className="mt-4 inline-flex text-[13px] font-mono text-accent no-underline hover:text-accent-hover"
+            >
+              Conhecer a trajetória →
+            </a>
+          </div>
+
+          <div className="rounded-2xl md:rounded-none bg-bg-3 border border-border-2 md:border-0 p-6 md:pt-12 md:pb-10 text-center md:[clip-path:polygon(0_0,100%_0,100%_100%,0_100%)]">
+            <h2 className="font-display text-[22px] md:text-[26px] font-medium tracking-tight text-text-1">
+              Do planejamento à publicação
+            </h2>
+            <p className="mt-3 text-[14px] text-text-2 leading-relaxed max-w-[340px] mx-auto">
+              Aplicações web com banco de dados, usuários e pagamentos, feitas por mim em todas as
+              etapas.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <a
+                href="#projetos"
+                className="inline-flex items-center gap-2 bg-accent text-bg text-sm font-semibold px-6 py-3 rounded-full no-underline hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(141,180,232,0.25)] transition-all duration-200"
+              >
+                Ver projetos
+              </a>
+              <a
+                href="#contato"
+                className="inline-flex items-center gap-2 text-text-1 text-sm font-medium px-6 py-3 rounded-full no-underline border border-border-2 hover:bg-bg-4 transition-colors duration-200"
+              >
+                Contato
+              </a>
+            </div>
+          </div>
+
+          <div className="rounded-2xl md:rounded-none bg-bg-2 border border-border md:border-0 p-6 md:pt-14 md:pb-8 md:[clip-path:polygon(0_0,100%_14%,100%_100%,0_100%)]">
+            <p className="text-[12px] font-mono text-text-3 uppercase tracking-widest">Onde me encontrar</p>
+            <ul className="mt-3 flex flex-col gap-1">
+              {social.map((c) => (
+                <li key={c.label}>
+                  <a
+                    href={c.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 py-1.5 text-[15px] text-text-1 no-underline hover:text-accent"
+                  >
+                    {c.label}
+                    <span aria-hidden="true">↗</span>
+                    <span className="sr-only"> (abre em nova aba)</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-[13px] text-text-2">{site.location}</p>
+          </div>
+        </div>
       </div>
     </section>
-  );
-}
-
-// Componente auxiliar para as estatísticas
-function Stat({ value, label }: { value: number | string; label: string }) {
-  return (
-    <div>
-      <div className="text-[28px] font-medium text-text-1 tracking-[-1px]">
-        {value}
-      </div>
-      <div className="text-xs text-text-3 mt-0.5 font-mono">{label}</div>
-    </div>
   );
 }

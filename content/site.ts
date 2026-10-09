@@ -11,6 +11,8 @@ export const site = {
   seeking: "Estágio em tecnologia",
   location: "Volta Redonda, RJ", // currículo; GitHub e site antigo dizem Rio de Janeiro
   locale: "pt-BR",
+  heroLead:
+    "Estudante de Engenharia de Software e desenvolvedor full stack em formação. Crio software para organizar, planejar e executar, e uso IA em automações para mim e para quem precisa de ajuda.",
   summary: [
     "Estudo Engenharia de Software na Univassouras e estou me formando como desenvolvedor full stack.",
     "Gosto de criar software para a minha própria produção, organização, planejamento e execução, e de usar o que aprendo para ajudar outras pessoas com isso: PWAs, SaaS e automações com IA.",

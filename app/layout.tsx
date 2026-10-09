@@ -12,7 +12,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 // DM Sans — elegante, moderna, levemente geométrica
 const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  // fonte variavel: sem `weight` o Next baixa um unico arquivo com todos os pesos
   variable: "--font-dm-sans",
   display: "swap",
 });
@@ -28,7 +28,7 @@ const dmMono = DM_Mono({
 // Space Grotesk — display largo e geometrico, so para titulos (alternativas: Sora, Geist)
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  // fonte variavel (um arquivo, pesos 300 a 700)
   variable: "--font-display",
   display: "swap",
 });

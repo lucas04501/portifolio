@@ -81,6 +81,18 @@ h1, h2, h3 {
   to { transform: rotate(360deg); }
 }
 
+/* Entrada em CSS (roda sem JavaScript; o conteudo nao fica invisivel antes da hidratacao).
+   Atraso por elemento via --d. Com prefers-reduced-motion a duracao colapsa (regra abaixo). */
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+/* Somente deslocamento, sem opacidade: o elemento ja conta como pintado (LCP) */
+@keyframes rise {
+  from { transform: translateY(18px); }
+  to   { transform: none; }
+}
+
 /* Respeita a preferencia do sistema por menos movimento */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -101,6 +113,15 @@ h1, h2, h3 {
     background-size: 56px 56px;
     -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 35%, #000 25%, transparent 78%);
     mask-image: radial-gradient(ellipse 75% 70% at 50% 35%, #000 25%, transparent 78%);
+  }
+
+  .reveal {
+    animation: reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--d, 0s);
+  }
+  .rise {
+    animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--d, 0s);
   }
 
   /* Painel de vidro (rotulos flutuantes, cartoes de base) */

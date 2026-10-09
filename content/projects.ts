@@ -24,7 +24,6 @@ export const projects: readonly Project[] = [
       "Cadastro de usuários e banco de dados próprios; planejamento, desenvolvimento, testes e publicação feitos por mim",
     ],
     stack: [
-      "Next.js 14",
       "TypeScript",
       "Prisma",
       "PostgreSQL",

@@ -23,7 +23,6 @@ export const skillGroups: readonly SkillGroup[] = [
     id: "web",
     label: "Interface e aplicações web",
     items: [
-      { name: "Next.js", level: "projetos", evidence: "LENS", source: ["repositorio"] },
       { name: "React", level: "projetos", evidence: "LENS; curso Fundamentos do React", source: ["repositorio", "curriculo"] },
       { name: "Tailwind CSS", level: "projetos", evidence: "LENS e este portfólio", source: ["repositorio"] },
     ],
