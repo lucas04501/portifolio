@@ -3,7 +3,6 @@
 
 import type { Metadata } from "next";
 import { DM_Sans, DM_Mono, Space_Grotesk } from "next/font/google";
-import { MotionProvider } from "@/components/MotionProvider";
 import "./globals.css";
 import { siteConfig } from "@/lib/config";
 import { Analytics } from "@vercel/analytics/react";
@@ -63,7 +62,7 @@ export default function RootLayout({
         <a href="#conteudo" className="skip-link">
           Pular para o conteúdo
         </a>
-        <MotionProvider>{children}</MotionProvider>
+        {children}
         <Analytics />
         <SpeedInsights />
       </body>
