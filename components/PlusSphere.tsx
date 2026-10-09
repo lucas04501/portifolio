@@ -28,9 +28,14 @@ export function PlusSphere({ className }: { className?: string }) {
     let targetYOffset = 0;
     let yOffset = 0;
     let pts = new Float32Array(0);
+    // buffers reutilizados a cada quadro (px, py, tamanho) e a faixa de profundidade de cada ponto
+    let proj = new Float32Array(0);
+    let bucket = new Uint8Array(0);
 
     const build = (n: number) => {
       pts = new Float32Array(n * 3);
+      proj = new Float32Array(n * 3);
+      bucket = new Uint8Array(n);
       const golden = Math.PI * (3 - Math.sqrt(5)); // espiral de Fibonacci: pontos uniformes
       for (let i = 0; i < n; i++) {
         const y = 1 - (i / (n - 1)) * 2;
@@ -73,9 +78,8 @@ export function PlusSphere({ className }: { className?: string }) {
       const cosX = Math.cos(rotX);
       const sinX = Math.sin(rotX);
 
-      // agrupa as cruzes por faixa de profundidade para reduzir chamadas de stroke
-      const paths: Path2D[] = Array.from({ length: BUCKETS }, () => new Path2D());
-      for (let i = 0; i < pts.length; i += 3) {
+      // projeta todos os pontos em buffers reutilizados (sem alocar objetos por quadro)
+      for (let i = 0, n = 0; i < pts.length; i += 3, n++) {
         const x = pts[i];
         const y = pts[i + 1];
         const z = pts[i + 2];
@@ -88,18 +92,30 @@ export function PlusSphere({ className }: { className?: string }) {
         const px = cx + x1 * radius * scale;
         const py = cy + y2 * radius * scale;
         const size = (1.6 + depth * 4.4) * (radius / 260);
-        const b = Math.min(BUCKETS - 1, Math.floor(depth * BUCKETS));
-        paths[b].moveTo(px - size, py);
-        paths[b].lineTo(px + size, py);
-        paths[b].moveTo(px, py - size);
-        paths[b].lineTo(px, py + size);
+        proj[i] = px;
+        proj[i + 1] = py;
+        proj[i + 2] = size;
+        bucket[n] = Math.min(BUCKETS - 1, Math.floor(depth * BUCKETS));
       }
+
+      // uma passada de stroke por faixa de profundidade (opacidade e espessura por faixa)
       ctx!.lineCap = "round";
       for (let b = 0; b < BUCKETS; b++) {
         const d = (b + 0.5) / BUCKETS;
         ctx!.strokeStyle = `rgba(${ACCENT},${(0.1 + d * 0.78).toFixed(3)})`;
         ctx!.lineWidth = 0.8 + d * 1.1;
-        ctx!.stroke(paths[b]);
+        ctx!.beginPath();
+        for (let i = 0, n = 0; i < proj.length; i += 3, n++) {
+          if (bucket[n] !== b) continue;
+          const px = proj[i];
+          const py = proj[i + 1];
+          const size = proj[i + 2];
+          ctx!.moveTo(px - size, py);
+          ctx!.lineTo(px + size, py);
+          ctx!.moveTo(px, py - size);
+          ctx!.lineTo(px, py + size);
+        }
+        ctx!.stroke();
       }
     }
 
@@ -134,8 +150,7 @@ export function PlusSphere({ className }: { className?: string }) {
     window.addEventListener("pointermove", onPointer, { passive: true });
     document.addEventListener("visibilitychange", onVisibility);
     reduce.addEventListener("change", onMotionChange);
-    resize();
-    start();
+    start(); // o primeiro desenho vem do ResizeObserver, que dispara ao observar
 
     return () => {
       if (raf) cancelAnimationFrame(raf);

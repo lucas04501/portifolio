@@ -67,20 +67,6 @@ h1, h2, h3 {
 }
 
 /* -- ANIMACOES GLOBAIS -- */
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.4; transform: scale(0.85); }
-}
-
-@keyframes shimmer {
-  from { transform: translateX(-100%); }
-  to   { transform: translateX(100%); }
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
 /* Entrada em CSS (roda sem JavaScript; o conteudo nao fica invisivel antes da hidratacao).
    Atraso por elemento via --d. Com prefers-reduced-motion a duracao colapsa (regra abaixo). */
 @keyframes reveal {
@@ -178,17 +164,5 @@ h1, h2, h3 {
   }
   .section-label-text {
     @apply text-xs text-accent font-mono tracking-widest uppercase;
-  }
-
-  /* Skeleton loader */
-  .skeleton {
-    @apply bg-bg-3 rounded relative overflow-hidden;
-  }
-  .skeleton::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
-    animation: shimmer 1.5s infinite;
   }
 }

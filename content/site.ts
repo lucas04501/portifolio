@@ -70,3 +70,40 @@ export const contacts: readonly Contact[] = [
     source: ["curriculo", "confirmado"],
   },
 ]
+
+// Links externos (GitHub, LinkedIn): usados no hero, no contato e no rodape
+export const socialLinks: readonly Contact[] = contacts.filter((c) => c.href.startsWith("http"))
+
+// Rotulos flutuantes do hero: fatos curtos sobre os projetos e a formacao
+export const heroLabels: readonly { title: string; text: string; source: Sources }[] = [
+  {
+    title: "LENS",
+    text: "Produtividade, hábitos e foco · publicado",
+    source: ["curriculo", "demo-publica"],
+  },
+  {
+    title: "Vire a Chave",
+    text: "E-book de autodesenvolvimento · Kiwify",
+    source: ["curriculo", "demo-publica", "confirmado"],
+  },
+  {
+    title: "Univassouras",
+    text: "Engenharia de Software · 2º período",
+    source: ["curriculo", "confirmado"],
+  },
+]
+
+// Textos dos cartoes de base do hero
+export const heroCards = {
+  about: {
+    label: "Sobre",
+    text: "Software para a minha própria produção e para ajudar outras pessoas: PWAs, SaaS e automações com IA.",
+    linkLabel: "Conhecer a trajetória →",
+  },
+  cta: {
+    title: "Do planejamento à publicação",
+    text: "Aplicações web com banco de dados, usuários e pagamentos, feitas por mim em todas as etapas.",
+  },
+  find: { label: "Onde me encontrar" },
+  source: ["curriculo", "confirmado"] as Sources,
+} as const

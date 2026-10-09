@@ -2,10 +2,9 @@
 // Contato: e-mail e links. Sem formulario (decisao do projeto): nada simulado,
 // nenhum servico externo e nenhum dado coletado.
 
-import { site, contacts } from "@/content";
+import { site, contacts, socialLinks } from "@/content";
 
 const email = contacts.find((c) => c.label === "E-mail");
-const links = contacts.filter((c) => c.label !== "E-mail");
 
 export function Contact() {
   return (
@@ -45,7 +44,7 @@ export function Contact() {
           )}
 
           <ul className="mt-10 flex flex-wrap items-center gap-3">
-            {links.map((c) => (
+            {socialLinks.map((c) => (
               <li key={c.label}>
                 <a
                   href={c.href}

@@ -1,9 +1,7 @@
 // components/Footer.tsx
 // Rodape enxuto, com dados de content/.
 
-import { site, contacts } from "@/content";
-
-const external = contacts.filter((c) => c.label !== "E-mail");
+import { site, socialLinks } from "@/content";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -28,7 +26,7 @@ export function Footer() {
           >
             projetos
           </a>
-          {external.map((c) => (
+          {socialLinks.map((c) => (
             <a
               key={c.label}
               href={c.href}

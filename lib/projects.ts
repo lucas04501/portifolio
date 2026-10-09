@@ -19,7 +19,12 @@ export function getVisibleProjects(repos: GitHubRepo[] = []): ProjectView[] {
     .filter((p) => p.visible)
     .map((p) => {
       const repo = p.repoName ? byName.get(p.repoName) : undefined;
-      return { ...p, stars: repo?.stargazers_count, updatedAt: repo?.updated_at };
+      // pushed_at = ultimo envio de codigo (updated_at tambem muda com estrelas e descricao)
+      return {
+        ...p,
+        stars: repo?.stargazers_count,
+        updatedAt: repo?.pushed_at ?? repo?.updated_at,
+      };
     })
     .sort(
       (a, b) =>

@@ -45,7 +45,7 @@ export interface Project {
   links: { demo?: string; repo?: string }
   /** Nome do repositório no GitHub, usado só para enriquecer (estrelas, data) */
   repoName?: string
-  /** Informações que ainda faltam antes de publicar o projeto */
+  /** Anotações internas do que ainda falta confirmar; não são exibidas no site */
   pending: readonly string[]
   source: Sources
 }
@@ -89,7 +89,7 @@ export interface Language {
 export interface Contact {
   label: string
   href: string
-  /** `a-validar`: ainda preciso confirmar que é o contato público desejado */
+  /** Registro de validação (anotação interna, não altera o que é exibido) */
   status: "confirmado" | "a-validar"
   source: Sources
 }

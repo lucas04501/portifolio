@@ -30,5 +30,3 @@ export const languages: readonly Language[] = [
     source: ["curriculo"],
   },
 ]
-
-export const experience: readonly never[] = []

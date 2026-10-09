@@ -33,9 +33,14 @@ export function Nav() {
     const sections = observed
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
+    // Guarda quais secoes estao na faixa central; sem nenhuma (hero, vaos), nao ha secao ativa
+    const inBand = new Set<string>();
     const io = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => e.isIntersecting && setActive(e.target.id));
+        entries.forEach((e) =>
+          e.isIntersecting ? inBand.add(e.target.id) : inBand.delete(e.target.id)
+        );
+        setActive(observed.find((id) => inBand.has(id)) ?? null);
       },
       { rootMargin: "-40% 0px -55% 0px" }
     );
@@ -105,7 +110,7 @@ export function Nav() {
             type="button"
             className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full text-text-1 border border-border-2 bg-bg-3"
             aria-expanded={open}
-            aria-controls="menu-mobile"
+            aria-controls={open ? "menu-mobile" : undefined}
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             onClick={() => setOpen((v) => !v)}
           >
