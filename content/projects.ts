@@ -84,22 +84,25 @@ export const projects: readonly Project[] = [
   {
     slug: "flowfin",
     name: "FlowFin",
-    kind: "Aplicativo web",
-    featured: 3,
+    kind: "Back-end em Node.js",
     status: "em-desenvolvimento",
-    visible: false, // sem README no repositório; só aparece depois de documentado
-    summary: "Aplicação de controle financeiro pessoal, com gráficos para acompanhar gastos e receitas.",
+    visible: true, // README publicado em 2026-10-09 (PR #1 do repositório)
+    summary:
+      "Aplicação de controle financeiro pessoal, em desenvolvimento. Hoje existe a base do back-end em Node.js com PostgreSQL.",
     problem: "Organizar finanças pessoais e adicionar as ferramentas que eu sinto falta.",
-    highlights: ["Construído sem frameworks, para aprender os fundamentos antes de partir para eles"],
+    highlights: [
+      "Servidor Express 5 conectado ao PostgreSQL (pg e dotenv)",
+      "Rota de teste que confirma a conversa entre servidor e banco",
+      "Construído do zero, sem frameworks de front-end, para aprender os fundamentos antes de partir para eles",
+    ],
     stack: ["JavaScript", "Node.js", "Express", "PostgreSQL"],
     links: { repo: "https://github.com/lucas04501/FlowFin" },
     repoName: "FlowFin",
     pending: [
-      "Escrever o README do repositório",
-      "Confirmar a stack (Express e PostgreSQL vêm do README do perfil; o repositório só mostra server.js e db.js)",
-      "Trocar `visible` para true depois disso",
+      "Cadastro de despesas (a rota POST /despesas está só no computador do Lucas, ainda não commitada)",
+      "Front-end e gráficos: o curriculo fala em gráficos, mas ainda não existem no repositório",
     ],
-    source: ["curriculo", "perfil-github"],
+    source: ["repositorio", "perfil-github", "curriculo"],
   },
   {
     slug: "e-commerce",
@@ -107,20 +110,22 @@ export const projects: readonly Project[] = [
     kind: "API em Python",
     status: "so-codigo",
     visible: true,
-    summary: "API de uma loja virtual em Python e Flask: login, catálogo, carrinho e finalização de compra.",
-    problem: "Praticar o desenho de uma API completa e documentada, do cadastro de produtos ao checkout.",
+    summary:
+      "API de uma loja virtual em Python e Flask, em construção: login, catálogo de produtos e carrinho.",
+    problem:
+      "Praticar o desenho de uma API do cadastro de produtos ao carrinho. Busca, finalização da compra e documentação ainda estão por fazer.",
     highlights: [
-      "Autenticação com controle de sessão",
-      "CRUD de produtos para administradores e busca por palavra-chave",
-      "Carrinho por usuário e finalização de compra",
-      "API documentada com Swagger",
+      "Login e logout com sessão (Flask-Login)",
+      "CRUD de produtos protegido por login, e listagem pública",
+      "Adicionar produtos ao carrinho do usuário logado",
+      "Modelos de usuário, produto e item de carrinho com SQLAlchemy (SQLite)",
     ],
-    stack: ["Python", "Flask", "Swagger"],
+    stack: ["Python", "Flask", "SQLAlchemy", "Flask-Login"],
     links: { repo: "https://github.com/lucas04501/E-commerce" },
     repoName: "E-commerce",
     pending: [
-      "Corrigir a descrição do repositório: o código não integra gateway de pagamento",
-      "Remover __pycache__ e instance do repositório",
+      "Busca, ver e remover itens do carrinho, checkout, hash de senha e Swagger: previstos no README do repositório, ainda não implementados",
+      "Sem integração de pagamento",
     ],
     source: ["repositorio", "confirmado"],
   },
