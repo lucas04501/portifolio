@@ -7,6 +7,7 @@ import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Tech } from "@/components/Tech";
+import { Journey } from "@/components/Journey";
 import { Projects } from "@/components/Projects";
 import { GitHubSection } from "@/components/GitHubSection";
 import { Contact } from "@/components/Contact";
@@ -27,8 +28,9 @@ export default async function Home() {
       <Nav />
       <Hero />
       <About />
-      <Tech />
       <Projects repos={githubData?.repos ?? []} />
+      <Tech />
+      <Journey />
       <GitHubSection
         user={githubData?.user ?? null}
         languageStats={githubData?.languageStats ?? []}

@@ -1,6 +1,8 @@
 # Design — direção visual e arquitetura
 
-Estado: **em andamento**. Implementado: tokens de cor, fontes, grade "+", foco visível, `prefers-reduced-motion`, link "pular para o conteúdo" e navegação (etapa 6). Ainda planejado: hero, seções e conteúdo no site (etapas 7 a 11).
+Estado: **em andamento**. Implementado: tokens de cor, fontes, grade "+", foco visível, `prefers-reduced-motion`, link "pular para o conteúdo" e navegação (etapa 6); hero com palavras gigantes, esfera de cruzes em canvas, rótulos de vidro e cartões de base (etapa 7); Sobre e Trajetória (etapa 8). Ainda planejado: Projetos, Tecnologias, Contato e SEO (etapas 9 a 11). A entrada ao rolar usa `animation-timeline: view()` (`.scroll-reveal`) onde há suporte.
+
+Regra de entrada de elementos: animações em **CSS** (`.reveal`, `.rise` em `globals.css`), nunca `opacity: 0` vindo de JavaScript no conteúdo principal. O texto precisa estar visível antes da hidratação e sem JS. O que é o maior elemento da tela (LCP) usa só deslocamento (`.rise`).
 
 ## Direção visual
 Referência de direção artística: shot do Dribbble "AI SaaS Agent Landing — Futuristic Hero" (hero com tipografia gigante atravessada por um objeto central, rótulos de vidro flutuantes, cartões sobrepostos na base e grade de cruzes finas). Usada só como inspiração; não se reproduz objeto, texto nem layout.

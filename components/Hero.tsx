@@ -105,7 +105,7 @@ export function Hero() {
               automações com IA.
             </p>
             <a
-              href="#sobre"
+              href="#trajetoria"
               className="mt-4 inline-flex text-[13px] font-mono text-accent no-underline hover:text-accent-hover"
             >
               Conhecer a trajetória →

@@ -5,14 +5,15 @@
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/content";
 
-// Ordem igual a da pagina (Sobre, Tecnologias, Projetos, ..., Contato)
+// Ordem igual a da pagina (Sobre, Projetos, Tecnologias, Trajetoria, ..., Contato)
 const links = [
   { id: "sobre", label: "Sobre" },
-  { id: "tech", label: "Tecnologias" },
   { id: "projetos", label: "Projetos" },
+  { id: "tech", label: "Tecnologias" },
+  { id: "trajetoria", label: "Trajetória" },
 ] as const;
 
-const observed = ["sobre", "tech", "projetos", "github", "contato"];
+const observed = ["sobre", "projetos", "tech", "trajetoria", "github", "contato"];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);

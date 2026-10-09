@@ -1,5 +1,5 @@
 export * from "./types"
-export { site, contacts } from "./site"
+export { site, contacts, workStyle } from "./site"
 export { projects } from "./projects"
 export { skillGroups } from "./skills"
 export { education, courses, languages, experience } from "./timeline"
