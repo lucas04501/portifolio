@@ -4,7 +4,18 @@
 
 import type { GitHubUser, GitHubRepo, GitHubData, LanguageStat } from "@/types/github";
 
-const GITHUB_USERNAME = "lucas04501";
+export const GITHUB_USERNAME = "lucas04501";
+
+// Token é opcional: sem ele a API responde de forma anônima (60 req/h por IP),
+// o que basta com o cache de 1h. Nunca enviar o header com valor vazio.
+function githubHeaders(): HeadersInit {
+  const headers: Record<string, string> = {
+    Accept: "application/vnd.github.v3+json",
+  };
+  const token = process.env.GITHUB_TOKEN;
+  if (token) headers.Authorization = `Bearer ${token}`;
+  return headers;
+}
 
 // Mapeamento de cores por linguagem (igual ao GitHub)
 export const LANGUAGE_COLORS: Record<string, string> = {
@@ -35,11 +46,7 @@ function getLanguageColor(lang: string): string {
 async function fetchUser(): Promise<GitHubUser> {
   const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
     next: { revalidate: 3600 }, // Cache por 1 hora
-    headers: {
-      Accept: "application/vnd.github.v3+json",
-      // Adicione seu token aqui se quiser mais rate limit:
-      // Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-    },
+    headers: githubHeaders(),
   });
 
   if (!res.ok) throw new Error(`GitHub user fetch failed: ${res.status}`);
@@ -52,10 +59,7 @@ async function fetchRepos(): Promise<GitHubRepo[]> {
     `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=50&type=public`,
     {
       next: { revalidate: 3600 },
-      headers: {
-        Accept: "application/vnd.github.v3+json",
-        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-      },
+      headers: githubHeaders(),
     }
   );
 

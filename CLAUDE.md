@@ -5,8 +5,9 @@ Portfólio pessoal de Lucas Pereira (estudante de Engenharia de Software, full s
 ## Comandos
 - `npm run dev`: desenvolvimento em localhost:3000
 - `npm run build` / `npm start`: build e execução de produção
-- `npm run lint`: **ainda não configurado** (ESLint pendente; `next lint` abre assistente interativo, não responda por padrão)
+- `npm run lint`: ESLint 9 (flat config em `eslint.config.mjs`, regras `next/core-web-vitals` e `next/typescript`)
 - Não há testes.
+- `GITHUB_TOKEN` é opcional (ver `.env.example`); sem ele o site usa a API do GitHub de forma anônima.
 
 ## Regras do projeto
 - **Nada sem fonte.** Todo dado exibido (formação, projetos, tecnologias, contato) precisa vir de currículo, repositório ou confirmação do Lucas. Sem anos de experiência, cargos, receita, usuários ou métricas inventadas.

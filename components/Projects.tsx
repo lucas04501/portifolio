@@ -6,7 +6,7 @@
 import { useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef } from "react";
-import { getRepoIcon, LANGUAGE_COLORS } from "@/lib/github";
+import { getRepoIcon, LANGUAGE_COLORS, GITHUB_USERNAME } from "@/lib/github";
 import type { GitHubRepo } from "@/types/github";
 
 interface ProjectsProps {
@@ -169,7 +169,7 @@ export function Projects({ repos }: ProjectsProps) {
         {repos.length > 9 && (
           <div className="mt-10 text-center">
             <a
-              href={`https://github.com/${process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? "lucas04401"}?tab=repositories`}
+              href={`https://github.com/${GITHUB_USERNAME}?tab=repositories`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-text-3 text-sm font-mono no-underline hover:text-text-2 transition-colors"
