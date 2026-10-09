@@ -16,7 +16,7 @@ const statusLabel: Record<ProjectView["status"], string> = {
 
 const eyebrow = "text-[12px] font-mono text-text-3 uppercase tracking-widest";
 
-function External({ href, children }: { href: string; children: React.ReactNode }) {
+function External({ href, children, name }: { href: string; children: React.ReactNode; name: string }) {
   return (
     <a
       href={href}
@@ -26,7 +26,7 @@ function External({ href, children }: { href: string; children: React.ReactNode 
     >
       {children}
       <span aria-hidden="true">↗</span>
-      <span className="sr-only"> (abre em nova aba)</span>
+      <span className="sr-only"> de {name} (abre em nova aba)</span>
     </a>
   );
 }
@@ -129,8 +129,8 @@ function CaseStudy({ p, flip }: { p: ProjectView; flip: boolean }) {
         </div>
 
         <div className="mt-7 flex flex-wrap items-center gap-3">
-          {p.links.demo && <External href={p.links.demo}>Ver no ar</External>}
-          {p.links.repo && <External href={p.links.repo}>Código</External>}
+          {p.links.demo && <External href={p.links.demo} name={p.name}>Ver no ar</External>}
+          {p.links.repo && <External href={p.links.repo} name={p.name}>Código</External>}
         </div>
         <div className="mt-4">
           <Updated iso={p.updatedAt} />
@@ -160,7 +160,7 @@ function Secondary({ p }: { p: ProjectView }) {
       </div>
       <div className="mt-auto pt-6 flex flex-wrap items-center gap-3">
         {p.links.repo ? (
-          <External href={p.links.repo}>Código</External>
+          <External href={p.links.repo} name={p.name}>Código</External>
         ) : (
           <span className="text-[13px] text-text-3">Sem link público</span>
         )}

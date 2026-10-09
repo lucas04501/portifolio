@@ -1,6 +1,5 @@
 // content/site.ts
-// Identidade, posicionamento e contatos. Substitui, aos poucos, lib/config.ts
-// (os componentes migram nas etapas 7 a 10 do plano).
+// Identidade, posicionamento, SEO e contatos.
 
 import type { Contact, Sources } from "./types"
 
@@ -11,6 +10,12 @@ export const site = {
   seeking: "Estágio em tecnologia",
   location: "Volta Redonda, RJ", // currículo; GitHub e site antigo dizem Rio de Janeiro
   locale: "pt-BR",
+  // SEO: titulo ate ~60 caracteres e descricao ate ~160
+  seo: {
+    title: "Lucas Pereira — Desenvolvedor full stack em formação",
+    description:
+      "Estudante de Engenharia de Software (Univassouras) e desenvolvedor full stack em formação. Projetos: LENS e Vire a Chave. Busco estágio em tecnologia.",
+  },
   heroLead:
     "Estudante de Engenharia de Software e desenvolvedor full stack em formação. Crio software para organizar, planejar e executar, e uso IA em automações para mim e para quem precisa de ajuda.",
   summary: [
