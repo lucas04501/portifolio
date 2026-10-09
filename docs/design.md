@@ -1,6 +1,6 @@
 # Design — direção visual e arquitetura
 
-Estado: **em andamento**. Implementado: tokens de cor, fontes, grade "+", foco visível, `prefers-reduced-motion`, link "pular para o conteúdo" e navegação (etapa 6); hero com palavras gigantes, esfera de cruzes em canvas, rótulos de vidro e cartões de base (etapa 7); Sobre e Trajetória (etapa 8). Ainda planejado: Projetos, Tecnologias, Contato e SEO (etapas 9 a 11). A entrada ao rolar usa `animation-timeline: view()` (`.scroll-reveal`) onde há suporte.
+Estado: **em andamento**. Implementado: tokens de cor, fontes, grade "+", foco visível, `prefers-reduced-motion`, link "pular para o conteúdo" e navegação (etapa 6); hero com palavras gigantes, esfera de cruzes em canvas, rótulos de vidro e cartões de base (etapa 7); Sobre e Trajetória (etapa 8); Projetos como estudos de caso (etapa 9); Tecnologias por evidência, Contato sem formulário e rodapé (etapa 10). Ainda planejado: SEO, metadados e limpeza final (etapa 11). A entrada ao rolar usa `animation-timeline: view()` (`.scroll-reveal`) onde há suporte.
 
 Regra de entrada de elementos: animações em **CSS** (`.reveal`, `.rise` em `globals.css`), nunca `opacity: 0` vindo de JavaScript no conteúdo principal. O texto precisa estar visível antes da hidratação e sem JS. O que é o maior elemento da tela (LCP) usa só deslocamento (`.rise`).
 

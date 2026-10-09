@@ -61,7 +61,7 @@ export const contacts: readonly Contact[] = [
   {
     label: "E-mail",
     href: "mailto:lucaspds9@hotmail.com",
-    status: "a-validar",
-    source: ["curriculo"],
+    status: "confirmado",
+    source: ["curriculo", "confirmado"],
   },
 ]

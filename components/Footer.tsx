@@ -1,38 +1,45 @@
 // components/Footer.tsx
-// Footer simples e limpo
+// Rodape enxuto, com dados de content/.
 
-import { siteConfig } from "@/lib/config";
+import { site, contacts } from "@/content";
+
+const external = contacts.filter((c) => c.label !== "E-mail");
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="py-10 border-t border-border">
-      <div className="max-w-[900px] mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="text-[13px] text-text-3 font-mono text-center sm:text-left">
-          © {year}{" "}
-          <span className="text-text-2">{siteConfig.fullName}</span>
-          {" "}— {siteConfig.title}
-        </div>
+      <div className="max-w-[1280px] mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="text-[13px] text-text-3 font-mono text-center sm:text-left">
+          © {year} <span className="text-text-2">{site.name}</span>
+        </p>
 
-        <div className="flex items-center gap-1">
-          {[
-            { label: "início", href: "#hero" },
-            { label: "projetos", href: "#projetos" },
-            { label: "github ↗", href: siteConfig.githubUrl, external: true },
-            { label: "linkedin ↗", href: siteConfig.linkedinUrl, external: true },
-          ].map((link) => (
+        <nav aria-label="Rodapé" className="flex flex-wrap items-center justify-center gap-1">
+          <a
+            href="#hero"
+            className="text-[13px] text-text-2 no-underline px-3 py-2 rounded-full hover:text-text-1 hover:bg-bg-3 transition-colors duration-200 font-mono"
+          >
+            início
+          </a>
+          <a
+            href="#projetos"
+            className="text-[13px] text-text-2 no-underline px-3 py-2 rounded-full hover:text-text-1 hover:bg-bg-3 transition-colors duration-200 font-mono"
+          >
+            projetos
+          </a>
+          {external.map((c) => (
             <a
-              key={link.label}
-              href={link.href}
-              target={link.external ? "_blank" : undefined}
-              rel={link.external ? "noopener noreferrer" : undefined}
-              className="text-[12px] text-text-3 no-underline px-2.5 py-1.5 rounded-full hover:text-text-2 hover:bg-bg-3 transition-all duration-200 font-mono"
+              key={c.label}
+              href={c.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[13px] text-text-2 no-underline px-3 py-2 rounded-full hover:text-text-1 hover:bg-bg-3 transition-colors duration-200 font-mono"
             >
-              {link.label}
+              {c.label.toLowerCase()} ↗<span className="sr-only"> (abre em nova aba)</span>
             </a>
           ))}
-        </div>
+        </nav>
       </div>
     </footer>
   );

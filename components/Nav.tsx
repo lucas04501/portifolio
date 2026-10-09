@@ -13,7 +13,7 @@ const links = [
   { id: "trajetoria", label: "Trajetória" },
 ] as const;
 
-const observed = ["sobre", "projetos", "tech", "trajetoria", "github", "contato"];
+const observed = ["sobre", "projetos", "tech", "trajetoria", "contato"];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
