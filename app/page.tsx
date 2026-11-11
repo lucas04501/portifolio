@@ -7,7 +7,7 @@ import { getRepos } from "@/lib/github";
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
-import { ScrollProgress } from "@/components/Tilt";
+import { ScrollProgress, Spotlight } from "@/components/Tilt";
 import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
 import { Tech } from "@/components/Tech";
@@ -22,6 +22,7 @@ export default async function Home() {
     <>
       <Nav />
       <ScrollProgress />
+      <Spotlight />
       <main id="conteudo">
         <Hero />
         <Marquee />

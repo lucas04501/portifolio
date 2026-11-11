@@ -141,12 +141,12 @@ h1, h2, h3 {
 
   [data-build="out"] * {
     transition:
-      color 0.35s ease-out,
-      background-color 0.35s ease-out,
-      border-color 0.35s ease-out,
-      box-shadow 0.35s ease-out,
-      outline-color 0.2s ease-out,
-      clip-path 0.65s cubic-bezier(0.22, 1, 0.36, 1) !important;
+      color 0.25s ease-out,
+      background-color 0.25s ease-out,
+      border-color 0.25s ease-out,
+      box-shadow 0.25s ease-out,
+      outline-color 0.15s ease-out,
+      clip-path 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
   }
 }
 
