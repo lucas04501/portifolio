@@ -13,19 +13,24 @@ const config: Config = {
     extend: {
       colors: {
         bg: {
-          DEFAULT: "#0B0D10",
-          2: "#12151A",
-          3: "#1A1E25",
-          4: "#222831",
+          DEFAULT: "#05070A",
+          2: "#0A0D12",
+          3: "#10141B",
+          4: "#171C25",
         },
         border: {
-          DEFAULT: "#262C35",
-          2: "#323A46",
+          DEFAULT: "#1A202A",
+          2: "#262E3A",
         },
         text: {
           1: "#E8EAED",
           2: "#9AA3AF",
           3: "#8791A0",
+        },
+        // Azul forte: so CTA principal e uma palavra por h2 (6.3:1 sobre bg; texto escuro por cima)
+        hot: {
+          DEFAULT: "#4F8CFF",
+          hover: "#7AA8FF",
         },
         accent: {
           DEFAULT: "#8DB4E8",

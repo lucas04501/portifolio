@@ -8,6 +8,7 @@ export type Source =
   | "perfil-github" // README do perfil lucas04501/lucas04501
   | "confirmado" // confirmado por ele em conversa (2026-10-09)
   | "demo-publica" // site publicado do projeto, aberto e conferido em 2026-10-09
+  | "confirmado-2026-11" // confirmado pelo Lucas em 2026-11-10 (projetos privados, jornada, ferramentas)
 
 export type Sources = readonly [Source, ...Source[]]
 
@@ -31,7 +32,7 @@ export interface Project {
   kind: string
   image?: ProjectImage
   /** Posição no destaque do site; ausente = projeto secundário */
-  featured?: 1 | 2 | 3
+  featured?: 1 | 2 | 3 | 4 | 5
   status: ProjectStatus
   /** Só `true` quando há informação suficiente e confirmada para exibir */
   visible: boolean
@@ -71,6 +72,13 @@ export interface Education {
   course: string
   period: string
   status: string
+  source: Sources
+}
+
+export interface JourneyStep {
+  when: string
+  title: string
+  text: string
   source: Sources
 }
 

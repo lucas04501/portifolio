@@ -1,6 +1,8 @@
 // content/projects.ts
 // Projetos exibidos, curados à mão. A API do GitHub só complementa (lib/projects.ts).
-// LENS e Vire a Chave: páginas públicas abertas e conferidas em 2026-10-09 ("demo-publica").
+// Vire a Chave: página pública aberta e conferida em 2026-10-09 ("demo-publica").
+// RIZZEVO Hub, Brandão Delícias e Brandão Gestão: projetos privados, descritos pelo que o Lucas confirmou em 2026-11-10.
+// LENS saiu do site em 2026-11-10 (o Lucas parou de usar).
 // Dos READMEs públicos: reconferir no código antes de publicar.
 // Fora do site por decisão do Lucas: ReputaçãoAI, Ritmo e os repositórios de estudo.
 
@@ -8,52 +10,112 @@ import type { Project } from "./types"
 
 export const projects: readonly Project[] = [
   {
-    slug: "lens",
-    name: "LENS",
-    kind: "Aplicativo web",
+    slug: "rumo",
+    name: "Rumo",
+    kind: "PWA de metas e hábitos",
     featured: 1,
     status: "publicado",
     visible: true,
     image: {
-      src: "/projects/lens.jpg",
-      alt: "Página inicial do LENS: título \"Master Your Mind\" e um painel de exemplo com sequência de dias, XP, hábitos do dia e desempenho semanal.",
-      width: 1440,
-      height: 900,
+      src: "/projects/rumo.png",
+      alt: "Tela Hoje do Rumo no celular, com dados de exemplo: saudação, meta em andamento desenhada como uma rota de barco, hábitos do dia e tarefas.",
+      width: 390,
+      height: 844,
     },
     summary:
-      "Sistema de produtividade que reúne hábitos, tarefas em quadro Kanban, rotina semanal, metas e foco, com gamificação.",
+      "PWA de metas, hábitos, planejamento e treinos, com a vida tratada como uma viagem. Multiusuário, instalável e funciona offline. É o meu projeto mais consolidado.",
     problem:
-      "Transformar disciplina em um sistema diário mensurável. Eu uso o LENS para mim e quero abri-lo para outras pessoas que também querem organizar a vida.",
+      "Planejar o mês e manter hábitos em um aplicativo que abre na hora, funciona sem internet e guarda os dados de cada pessoa em separado.",
     highlights: [
-      "Hábitos com check-in diário, sequência (streak) e mapa de calor mensal",
-      "Quadro Kanban com tarefas arrastáveis e checklists",
-      "Rotina semanal em blocos de tempo e metas no sistema dos 90 dias",
-      "Timer de foco (Pomodoro, 90 minutos ou Flow) que gera XP, e 7 níveis de INITIATE a TRANSCENDENT",
-      "Cadastro de usuários e banco de dados próprios; planejamento, desenvolvimento, testes e publicação feitos por mim",
+      "Offline de verdade: cada mudança entra numa fila local e sincroniza quando a internet volta",
+      "Contas separadas com duas travas: toda rota filtra pelo usuário e o banco recusa dado de outra pessoa (RLS)",
+      "Assinatura mensal pela Stripe, com período de teste; o app nunca vê dado de cartão",
+      "XP, sequências e estatísticas calculados a partir dos dados, em funções puras com testes",
+      "No ar na Netlify, com banco PostgreSQL e nenhum custo fixo de infraestrutura",
     ],
-    stack: [
-      "TypeScript",
-      "Prisma",
-      "PostgreSQL",
-      "NextAuth",
-      "Zustand",
-      "Tailwind CSS",
-      "Framer Motion",
-      "Recharts",
+    stack: ["TypeScript", "React", "Vite", "Hono", "Drizzle", "PostgreSQL", "Stripe", "PWA", "Netlify"],
+    links: { demo: "https://rumo-app.netlify.app/", repo: "https://github.com/lucas04501/rumo" },
+    repoName: "rumo",
+    pending: [],
+    source: ["repositorio", "confirmado-2026-11"],
+  },
+  {
+    slug: "rizzevo-hub",
+    name: "RIZZEVO Hub",
+    kind: "Plataforma da minha startup",
+    featured: 2,
+    status: "em-desenvolvimento",
+    visible: true,
+    summary:
+      "Plataforma interna da RIZZEVO, a startup que estou criando: gestão comercial, ativos NFC, relacionamento com clientes e identificação de oportunidades.",
+    problem:
+      "Transformar uma primeira venda pequena em relacionamento de longo prazo: acompanhar cada cliente, cada ativo entregue e cada oportunidade em um só lugar.",
+    highlights: [
+      "Front-end em React e API em Fastify, tudo em TypeScript",
+      "Banco PostgreSQL com Drizzle; PGlite em desenvolvimento e testes, sem depender de Docker",
+      "Valores em centavos inteiros e fuso horário fixo, para não errar conta nem data",
+      "Lint, checagem de tipos e testes (Vitest) verdes antes de cada entrega",
     ],
-    links: {
-      demo: "https://lens-two-xi.vercel.app",
-      repo: "https://github.com/lucas04501/LENSAPP",
+    stack: ["TypeScript", "React", "Vite", "Fastify", "Drizzle", "PostgreSQL", "Tailwind CSS", "Vitest"],
+    links: {},
+    pending: ["Sem repositório público nem demo; capturas de tela só com dados fictícios"],
+    source: ["confirmado-2026-11"],
+  },
+  {
+    slug: "brandao-delicias",
+    name: "Brandão Delícias",
+    kind: "PWA de gestão de encomendas",
+    featured: 3,
+    status: "publicado",
+    visible: true,
+    image: {
+      src: "/projects/brandao-delicias.jpg",
+      alt: "Página inicial do site da Brandão Delícias: título \"Feito com muito carinho para adoçar seus momentos\" e botões para chamar no WhatsApp e conhecer as delícias.",
+      width: 800,
+      height: 500,
     },
-    repoName: "LENSAPP",
-    pending: ["Confirmar que o roadmap do README reflete o estado real", "Capturas das telas internas (hoje só a página inicial)"],
-    source: ["curriculo", "repositorio", "demo-publica", "confirmado"],
+    summary:
+      "Painel de gestão (PWA pensado para o celular) e site de uma confeitaria artesanal sob encomenda. O painel está em uso no dia a dia do negócio.",
+    problem:
+      "A proprietária toca tudo sozinha. Era preciso organizar encomendas, clientes, pagamentos e a produção do dia direto no celular.",
+    highlights: [
+      "Painel publicado no Cloudflare Pages, com banco e autenticação no Supabase",
+      "Regras de acesso no próprio banco (RLS), migrações versionadas e testes de banco",
+      "Projeto Supabase separado para desenvolvimento, sem tocar nos dados de produção",
+      "Integração contínua no GitHub Actions; mudanças entram por Pull Request",
+    ],
+    stack: ["TypeScript", "React", "Vite", "Tailwind CSS", "Supabase", "PostgreSQL", "Cloudflare Pages", "GitHub Actions"],
+    links: {},
+    pending: ["Repositório privado; nunca exibir telas com dados reais"],
+    source: ["confirmado-2026-11"],
+  },
+  {
+    slug: "brandao-gestao",
+    name: "Brandão Gestão",
+    kind: "Aplicativo web de gestão",
+    featured: 4,
+    status: "em-desenvolvimento",
+    visible: true,
+    summary:
+      "Gestão da rotina de um escritório de contabilidade: o que fazer hoje, o que vence, o que espera o cliente e o que precisa ser enviado.",
+    problem:
+      "Tirar a rotina mensal de planilhas e da memória, com as obrigações de cada cliente geradas e acompanhadas em um quadro.",
+    highlights: [
+      "Ficha do cliente com busca de dados pelo CNPJ (integração com API externa) e linha do tempo",
+      "Quadro de tarefas em colunas, com arrastar e filtros",
+      "Motor que gera as obrigações do mês considerando feriados",
+      "Login com controle de permissões e registro de auditoria; testes de ponta a ponta com Playwright e CI no GitHub Actions",
+    ],
+    stack: ["TypeScript", "React", "Vite", "Fastify", "Drizzle", "PostgreSQL", "Playwright", "GitHub Actions"],
+    links: {},
+    pending: ["Repositório privado; capturas só com dados de demonstração"],
+    source: ["confirmado-2026-11"],
   },
   {
     slug: "vire-a-chave",
     name: "Vire a Chave",
     kind: "Produto digital",
-    featured: 2,
+    featured: 5,
     status: "publicado",
     visible: true,
     image: {
@@ -70,16 +132,46 @@ export const projects: readonly Project[] = [
       "9 capítulos, de clareza e neurociência dos hábitos a rotina, ferramentas e metas de 90 dias",
       "6 gráficos e diagramas e exercícios práticos",
       "Página de venda com compra direta pelo cliente e integração de pagamentos (Kiwify)",
-      "Em desenvolvimento: ligar o e-book ao LENS, para viver o método no aplicativo e compartilhar a experiência",
     ],
     stack: ["Página de venda", "Kiwify", "Vercel"],
     links: { demo: "https://vire-a-chave.vercel.app" },
     pending: [
       "Corrigir no currículo a frase sobre 'sistema de pagamento próprio' (é o Kiwify)",
-      "Integração com o LENS: exibir sempre como objetivo, nunca como pronto",
       "Preço, garantia e promessas comerciais ficam fora do portfólio",
     ],
     source: ["curriculo", "demo-publica", "confirmado"],
+  },
+  {
+    slug: "link-aggregator",
+    name: "Agregador de links",
+    kind: "Feito à mão · HTML e CSS",
+    status: "publicado",
+    visible: true,
+    summary:
+      "Página que reúne links e redes em um só lugar. Um dos meus primeiros projetos, escrito à mão e publicado no GitHub Pages.",
+    problem: "Praticar HTML e CSS do zero e aprender a publicar um site.",
+    highlights: ["HTML e CSS escritos à mão", "Publicado no GitHub Pages"],
+    stack: ["HTML", "CSS", "GitHub Pages"],
+    links: { demo: "https://lucas04501.github.io/link-aggregator/", repo: "https://github.com/lucas04501/link-aggregator" },
+    repoName: "link-aggregator",
+    pending: [],
+    source: ["repositorio", "confirmado-2026-11"],
+  },
+  {
+    slug: "functional-calculator",
+    name: "Calculadora",
+    kind: "Feito à mão · JavaScript",
+    status: "so-codigo",
+    visible: true,
+    summary:
+      "Calculadora web em HTML, CSS e JavaScript puro, com suporte a teclado e histórico de operações.",
+    problem: "Treinar lógica e manipulação da página com JavaScript, sem bibliotecas.",
+    highlights: ["JavaScript puro", "Suporte a teclado e histórico"],
+    stack: ["HTML", "CSS", "JavaScript"],
+    links: { repo: "https://github.com/lucas04501/functional-calculator" },
+    repoName: "functional-calculator",
+    pending: [],
+    source: ["repositorio", "confirmado-2026-11"],
   },
   {
     slug: "flowfin",

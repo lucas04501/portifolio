@@ -5,17 +5,19 @@
 
 /* -- DESIGN TOKENS (espelham tailwind.config.ts; ver docs/design.md) -- */
 :root {
-  --bg:         #0B0D10;
-  --bg-2:       #12151A;
-  --bg-3:       #1A1E25;
-  --bg-4:       #222831;
-  --border:     #262C35;
-  --border-2:   #323A46;
+  --bg:         #05070A;
+  --bg-2:       #0A0D12;
+  --bg-3:       #10141B;
+  --bg-4:       #171C25;
+  --border:     #1A202A;
+  --border-2:   #262E3A;
   --text-1:     #E8EAED;
   --text-2:     #9AA3AF;
   --text-3:     #8791A0;
   --accent:     #8DB4E8;
   --accent-dim: #6F95CC;
+  --hot:        #4F8CFF;
+  --wire:       rgba(141, 180, 232, 0.55);
   --radius:     12px;
   --radius-sm:  8px;
 }
@@ -79,17 +81,73 @@ h1, h2, h3 {
   to   { transform: none; }
 }
 
-/* Entrada ao rolar, sem JavaScript: so onde o navegador suporta animacao por rolagem
-   (Chromium). Onde nao suporta, o conteudo simplesmente aparece, sem animacao. */
-@supports (animation-timeline: view()) {
-  .scroll-reveal {
-    animation: reveal linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 55%;
-  }
+/* Palavra gigante do hero: sobe de dentro de um conteiner com overflow oculto */
+@keyframes word-rise {
+  from { transform: translateY(45%); opacity: 0; }
+  to   { transform: none; opacity: 1; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .scroll-reveal { animation: none !important; }
+
+/* -- BLUEPRINT (components/Build.tsx) --
+   Cada bloco <Build> tem tres estados em data-build: "wire" (wireframe), "out" (transicao)
+   e "done". O wireframe e o proprio layout: o texto fica transparente e cada elemento ganha
+   contorno azul. So vale com JavaScript ativo e sem preferencia por menos movimento; fora
+   disso o conteudo aparece direto. O hero fica fora disso: texto e foto pintados desde o primeiro quadro (LCP). */
+[data-build] { position: relative; }
+[data-build]::before {
+  content: attr(data-label);
+  position: absolute;
+  left: 0;
+  top: -24px;
+  z-index: 5;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font: 500 10px/1.4 var(--font-dm-mono), monospace;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  background: var(--accent);
+  color: var(--bg);
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 0.16s ease-out, transform 0.16s ease-out;
+}
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-build="wire"]::before { opacity: 1; transform: none; }
+
+  [data-build="wire"] :is(h1, h2, h3, h4, p, li, dt, dd, img),
+  [data-build="wire"] a:not(:is(p, li, h1, h2, h3, dd) a) {
+    outline: 1px solid var(--wire);
+    outline-offset: 2px;
+  }
+  [data-build="out"] :is(h1, h2, h3, h4, p, li, dt, dd, img),
+  [data-build="out"] a:not(:is(p, li, h1, h2, h3, dd) a) {
+    outline: 1px solid transparent;
+    outline-offset: 2px;
+  }
+
+  [data-build="wire"] * {
+    color: transparent !important;
+    border-color: var(--wire) !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+  }
+  [data-build="wire"] :is(h1, h2, h3, h4, p, li, dt, dd) {
+    background-color: rgba(141, 180, 232, 0.07) !important;
+  }
+  /* Imagens entram "varrendo" da esquerda para a direita */
+  [data-build="wire"] img { clip-path: inset(0 100% 0 0); }
+  [data-build="out"] img { clip-path: inset(0); }
+
+  [data-build="out"] * {
+    transition:
+      color 0.35s ease-out,
+      background-color 0.35s ease-out,
+      border-color 0.35s ease-out,
+      box-shadow 0.35s ease-out,
+      outline-color 0.2s ease-out,
+      clip-path 0.65s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  }
 }
 
 /* Respeita a preferencia do sistema por menos movimento */
@@ -100,6 +158,39 @@ h1, h2, h3 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Foto do hero como fundo: some para a esquerda e para baixo, sem moldura */
+.hero-photo {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 45%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 45%);
+}
+@media (max-width: 767px) {
+  .hero-photo {
+    -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
+  }
+}
+/* Brilho do hero: respira devagar */
+@keyframes glow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%      { opacity: 0.7;  transform: scale(1.15); }
+}
+.hero-glow {
+  background: radial-gradient(closest-side, rgba(79, 140, 255, 0.22), transparent);
+  animation: glow 9s ease-in-out infinite;
+}
+/* Faixa de tecnologias: anda meia largura (ha duas copias) e pausa com o mouse em cima */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 38s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* Palavra gigante so em contorno */
+.word-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(141, 180, 232, 0.38);
 }
 
 /* -- UTILITARIOS -- */
@@ -118,6 +209,10 @@ h1, h2, h3 {
     animation: reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-delay: var(--d, 0s);
   }
+  .word-rise {
+    animation: word-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--d, 0s);
+  }
   .rise {
     animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-delay: var(--d, 0s);
@@ -125,7 +220,7 @@ h1, h2, h3 {
 
   /* Painel de vidro (rotulos flutuantes, cartoes de base) */
   .glass {
-    background: rgba(26, 30, 37, 0.58);
+    background: rgba(10, 13, 18, 0.62);
     border: 1px solid rgba(141, 180, 232, 0.18);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
@@ -146,14 +241,6 @@ h1, h2, h3 {
     transition: top 0.15s ease;
   }
   .skip-link:focus { top: 1rem; }
-
-  /* Texto com gradiente */
-  .text-gradient {
-    background: linear-gradient(135deg, var(--text-1) 0%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
 
   /* Label de secao */
   .section-label {

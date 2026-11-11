@@ -98,6 +98,15 @@ export function Nav() {
             ))}
           </div>
 
+          {/* Repete a montagem da pagina pelos agentes (some com movimento reduzido) */}
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event("agents:replay"))}
+            className="hidden md:inline-flex motion-reduce:hidden items-center gap-1.5 text-[13px] font-mono text-accent px-3 py-2 rounded-full border border-accent/30 hover:bg-bg-3 transition-colors duration-200 ml-2"
+          >
+            <span aria-hidden="true">↻</span> Reconstruir
+          </button>
+
           <a
             href="#contato"
             className="hidden md:inline-flex text-[13px] font-semibold text-bg bg-accent px-4 py-2 rounded-full no-underline hover:bg-accent-hover transition-colors duration-200 ml-2"

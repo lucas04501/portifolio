@@ -6,6 +6,8 @@
 import { getRepos } from "@/lib/github";
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
+import { Marquee } from "@/components/Marquee";
+import { ScrollProgress } from "@/components/Tilt";
 import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
 import { Tech } from "@/components/Tech";
@@ -19,8 +21,10 @@ export default async function Home() {
   return (
     <>
       <Nav />
+      <ScrollProgress />
       <main id="conteudo">
         <Hero />
+        <Marquee />
         <About />
         <Projects repos={repos} />
         <Tech />
