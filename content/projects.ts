@@ -46,6 +46,12 @@ export const projects: readonly Project[] = [
     featured: 2,
     status: "em-desenvolvimento",
     visible: true,
+    image: {
+      src: "/projects/rizzevo-hub.png",
+      alt: "Tela Financeiro do RIZZEVO Hub: cartões de receita, lançamentos e lucro, gráfico de receita e despesas por mês e despesas por categoria.",
+      width: 480,
+      height: 272,
+    },
     summary:
       "Plataforma interna da RIZZEVO, a startup que estou criando: gestão comercial, ativos NFC, relacionamento com clientes e identificação de oportunidades.",
     problem:
@@ -58,7 +64,7 @@ export const projects: readonly Project[] = [
     ],
     stack: ["TypeScript", "React", "Vite", "Fastify", "Drizzle", "PostgreSQL", "Tailwind CSS", "Vitest"],
     links: {},
-    pending: ["Sem repositório público nem demo; capturas de tela só com dados fictícios"],
+    pending: ["Sem repositório público nem demo", "Captura enviada pelo Lucas em 2026-11-10 (480 px de largura; trocar por uma maior quando houver)"],
     source: ["confirmado-2026-11"],
   },
   {
@@ -96,6 +102,12 @@ export const projects: readonly Project[] = [
     featured: 4,
     status: "em-desenvolvimento",
     visible: true,
+    image: {
+      src: "/projects/brandao-gestao.png",
+      alt: "Apresentação do Brandão Gestão com dados fictícios: telas do Painel Hoje, empresas, quadro de tarefas, fechamento do mês, pendências, vencimentos, honorários e a versão para celular.",
+      width: 773,
+      height: 730,
+    },
     summary:
       "Gestão da rotina de um escritório de contabilidade: o que fazer hoje, o que vence, o que espera o cliente e o que precisa ser enviado.",
     problem:
