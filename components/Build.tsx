@@ -20,7 +20,7 @@ export function Build({
   children: React.ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -15% 0px" });
+  const inView = useInView(ref, { once: true, margin: "0px 0px 15% 0px" });
   const [phase, setPhase] = useState<Phase>("wire");
   const reduce = useReducedMotion();
   const [run, setRun] = useState(0); // "Reconstruir" (Nav) repete a construcao
@@ -36,8 +36,8 @@ export function Build({
 
   useEffect(() => {
     if (!inView) return;
-    const a = setTimeout(() => setPhase("out"), 950);
-    const b = setTimeout(() => setPhase("done"), 1800);
+    const a = setTimeout(() => setPhase("out"), 180);
+    const b = setTimeout(() => setPhase("done"), 800);
     return () => {
       clearTimeout(a);
       clearTimeout(b);
@@ -52,7 +52,7 @@ export function Build({
       className={className}
       initial={false}
       animate={phase === "wire" && !reduce ? { rotateX: 7, y: 20, scale: 0.985 } : { rotateX: 0, y: 0, scale: 1 }}
-      transition={{ type: "spring", stiffness: 120, damping: 18 }}
+      transition={{ type: "spring", stiffness: 220, damping: 24 }}
       style={{ transformPerspective: 1200 }}
     >
       {children}

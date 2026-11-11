@@ -3,6 +3,7 @@
 // Movimento 3D: Tilt inclina o conteudo conforme o mouse (camadas internas com translateZ
 // ganham profundidade real) e Drift desloca um elemento conforme a rolagem da pagina.
 
+import { useEffect } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 
 const spring = { stiffness: 160, damping: 18 };
@@ -40,6 +41,32 @@ export function Tilt({
         {children}
       </motion.div>
     </div>
+  );
+}
+
+// Luz azul suave que segue o ponteiro do mouse (nao existe no toque nem com movimento reduzido)
+export function Spotlight() {
+  const x = useSpring(-600, { stiffness: 120, damping: 20 });
+  const y = useSpring(-600, { stiffness: 120, damping: 20 });
+  const reduce = useReducedMotion();
+
+  useEffect(() => {
+    if (reduce) return;
+    const move = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      x.set(e.clientX - 260);
+      y.set(e.clientY - 260);
+    };
+    window.addEventListener("pointermove", move, { passive: true });
+    return () => window.removeEventListener("pointermove", move);
+  }, [reduce, x, y]);
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      className="pointer-events-none fixed left-0 top-0 z-30 h-[520px] w-[520px] rounded-full bg-[radial-gradient(closest-side,rgba(79,140,255,0.13),transparent)]"
+      style={{ x, y }}
+    />
   );
 }
 
