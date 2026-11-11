@@ -14,8 +14,12 @@ export const site = {
   seo: {
     title: "Lucas Pereira — Desenvolvedor full stack em formação",
     description:
-      "Estudante de Engenharia de Software (Univassouras) e desenvolvedor full stack em formação. Projetos: LENS e Vire a Chave. Busco estágio em tecnologia.",
+      "Estudante de Engenharia de Software (Univassouras) e desenvolvedor full stack em formação. Criador da RIZZEVO. Busco estágio em tecnologia.",
   },
+  // Hero: saudacao acima do nome e palavra gigante atras da foto
+  heroGreeting: "Olá, eu sou",
+  heroWord: "Portfólio",
+  heroPhotoAlt: "Retrato de Lucas Pereira, de terno azul-marinho e camisa branca.",
   heroLead:
     "Estudante de Engenharia de Software e desenvolvedor full stack em formação. Crio software para organizar, planejar e executar, e uso IA em automações para mim e para quem precisa de ajuda.",
   summary: [
@@ -23,7 +27,7 @@ export const site = {
     "Gosto de criar software para a minha própria produção, organização, planejamento e execução, e de usar o que aprendo para ajudar outras pessoas com isso: PWAs, SaaS e automações com IA.",
   ],
   story:
-    "Meu projeto mais completo é o LENS, um aplicativo de produtividade que uso para mim e quero abrir para outras pessoas. Ele nasceu do Vire a Chave, um e-book de autodesenvolvimento que escrevi a partir de livros, hábitos e estudos de neurociência.",
+    "Hoje divido o tempo entre a faculdade, a RIZZEVO (a startup que estou criando) e sistemas que já rodam no dia a dia de negócios reais, como o painel de encomendas da Brandão Delícias e a gestão de rotina do Brandão Gestão.",
   source: ["curriculo", "confirmado"] as Sources,
 } as const
 
@@ -47,6 +51,21 @@ export const workStyle: readonly { title: string; text: string; source: Sources 
     title: "IA como aliada",
     text: "Uso IA para criar automações para mim e para pessoas que precisam de ajuda.",
     source: ["confirmado"],
+  },
+  {
+    title: "Do código ao ar",
+    text: "Faço o deploy e coloco o site no ar: Vercel, Cloudflare Pages, Netlify e GitHub Pages, com banco no Supabase ou em PostgreSQL.",
+    source: ["confirmado-2026-11"],
+  },
+  {
+    title: "Integrações",
+    text: "Conecto APIs externas com chaves guardadas em variáveis de ambiente e integro pagamentos (Stripe e Kiwify).",
+    source: ["confirmado-2026-11"],
+  },
+  {
+    title: "Segurança e registro",
+    text: "Segredos fora do repositório, regras de acesso no banco, mudanças por Pull Request e decisões documentadas.",
+    source: ["confirmado-2026-11"],
   },
 ]
 
@@ -77,14 +96,14 @@ export const socialLinks: readonly Contact[] = contacts.filter((c) => c.href.sta
 // Rotulos flutuantes do hero: fatos curtos sobre os projetos e a formacao
 export const heroLabels: readonly { title: string; text: string; source: Sources }[] = [
   {
-    title: "LENS",
-    text: "Produtividade, hábitos e foco · publicado",
-    source: ["curriculo", "demo-publica"],
+    title: "Rumo",
+    text: "PWA de metas e hábitos · no ar",
+    source: ["repositorio"],
   },
   {
-    title: "Vire a Chave",
-    text: "E-book de autodesenvolvimento · Kiwify",
-    source: ["curriculo", "demo-publica", "confirmado"],
+    title: "Brandão Delícias",
+    text: "Painel de encomendas em uso real",
+    source: ["confirmado-2026-11"],
   },
   {
     title: "Univassouras",
@@ -92,18 +111,3 @@ export const heroLabels: readonly { title: string; text: string; source: Sources
     source: ["curriculo", "confirmado"],
   },
 ]
-
-// Textos dos cartoes de base do hero
-export const heroCards = {
-  about: {
-    label: "Sobre",
-    text: "Software para a minha própria produção e para ajudar outras pessoas: PWAs, SaaS e automações com IA.",
-    linkLabel: "Conhecer a trajetória →",
-  },
-  cta: {
-    title: "Do planejamento à publicação",
-    text: "Aplicações web com banco de dados, usuários e pagamentos, feitas por mim em todas as etapas.",
-  },
-  find: { label: "Onde me encontrar" },
-  source: ["curriculo", "confirmado"] as Sources,
-} as const

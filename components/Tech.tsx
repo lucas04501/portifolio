@@ -2,31 +2,32 @@
 // Tecnologias por nivel de evidencia: o que ja usei em projetos x o que estou estudando.
 // Tudo vem de content/skills.ts (cada item tem fonte). Sem icones: nada de marca aproximada.
 
+import { Build } from "@/components/Build";
 import { skillGroups } from "@/content";
 
 export function Tech() {
   return (
     <section id="tech" aria-labelledby="tech-title" className="py-28">
       <div className="max-w-[1280px] mx-auto px-6">
-        <div className="scroll-reveal max-w-[720px]">
+        <Build label="secao · tecnologias" className="max-w-[720px]">
           <div className="section-label">
             <div className="section-label-line" />
             <span className="section-label-text">tecnologias</span>
           </div>
           <h2
             id="tech-title"
-            className="font-display text-[clamp(32px,5vw,60px)] font-light leading-[1.05] tracking-[-0.03em]"
+            className="font-display text-[clamp(32px,5vw,60px)] font-bold uppercase leading-[0.95] tracking-[-0.03em]"
           >
-            Tecnologias, por <strong className="font-medium text-gradient">evidência</strong>
+            Tecnologias, por <strong className="font-bold text-hot">evidência</strong>
           </h2>
           <p className="mt-5 text-[16px] md:text-[17px] text-text-2 leading-relaxed">
             Separo o que já usei nos meus projetos do que ainda estou estudando, e digo onde usei.
           </p>
-        </div>
+        </Build>
 
-        <div className="mt-14 grid md:grid-cols-2 xl:grid-cols-3 gap-x-12 gap-y-14">
+        <Build label="content/skills.ts" className="mt-14 grid md:grid-cols-2 xl:grid-cols-3 gap-x-12 gap-y-14">
           {skillGroups.map((group) => (
-            <div key={group.id} className="scroll-reveal">
+            <div key={group.id}>
               <h3 className="text-[12px] font-mono text-text-3 uppercase tracking-widest mb-4">
                 {group.label}
               </h3>
@@ -58,9 +59,9 @@ export function Tech() {
               </ul>
             </div>
           ))}
-        </div>
+        </Build>
 
-        <p className="scroll-reveal mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-text-3">
+        <p className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-text-3">
           <span className="inline-flex items-center gap-2">
             <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-accent" />
             usei em projetos

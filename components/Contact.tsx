@@ -2,6 +2,7 @@
 // Contato: e-mail e links. Sem formulario (decisao do projeto): nada simulado,
 // nenhum servico externo e nenhum dado coletado.
 
+import { Build } from "@/components/Build";
 import { site, contacts, socialLinks } from "@/content";
 
 const email = contacts.find((c) => c.label === "E-mail");
@@ -16,7 +17,7 @@ export function Contact() {
       <div aria-hidden="true" className="plus-grid absolute inset-0 -z-10 opacity-60" />
 
       <div className="max-w-[1280px] mx-auto px-6">
-        <div className="scroll-reveal">
+        <Build label="content/site.ts · contato">
           <div className="section-label">
             <div className="section-label-line" />
             <span className="section-label-text">contato</span>
@@ -24,9 +25,9 @@ export function Contact() {
 
           <h2
             id="contato-title"
-            className="font-display text-[clamp(36px,6vw,84px)] font-light leading-[1] tracking-[-0.035em]"
+            className="font-display text-[clamp(36px,6vw,84px)] font-bold uppercase leading-[0.95] tracking-[-0.03em]"
           >
-            Vamos <strong className="font-medium text-gradient">conversar</strong>?
+            Vamos <strong className="font-bold text-hot">conversar</strong>?
           </h2>
 
           <p className="mt-6 max-w-[560px] text-[16px] md:text-[17px] text-text-2 leading-relaxed">
@@ -61,7 +62,7 @@ export function Contact() {
           </ul>
 
           <p className="mt-8 text-[14px] text-text-3">{site.location}</p>
-        </div>
+        </Build>
       </div>
     </section>
   );

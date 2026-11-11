@@ -1,159 +1,91 @@
 // components/Hero.tsx
-// Hero: palavras gigantes atravessadas por um objeto central, rotulos de vidro com fatos
-// verificaveis e cartoes sobrepostos na base. Todo texto vem de content/ (com fonte);
-// aqui ficam so a apresentacao e as posicoes dos rotulos.
+// Hero: a foto e o fundo da tela (sem moldura), desbotando no escuro; por cima, saudacao,
+// nome, papel e CTAs. A palavra gigante fica em contorno na base. Todo texto vem de content/.
 
-import { HeroSphere } from "@/components/HeroSphere";
-import { site, socialLinks, heroLabels, heroCards } from "@/content";
+import Image from "next/image";
+import { Drift } from "@/components/Tilt";
+import { site, heroLabels } from "@/content";
 
 // Atraso de entrada por elemento (CSS .reveal em globals.css)
 const delay = (s: number) => ({ "--d": `${s}s` }) as React.CSSProperties;
-
-// Posicao de cada rotulo no desktop, na mesma ordem de heroLabels
-const labelLayout = [
-  {
-    pos: "md:left-[1%] md:top-[3%]",
-    line: "md:left-full md:top-1/2 md:w-28",
-  },
-  {
-    pos: "md:right-[1%] md:top-[3%]",
-    line: "md:right-full md:top-1/2 md:w-28 md:rotate-180",
-  },
-  {
-    pos: "md:left-[6%] md:bottom-[3%]",
-    line: "md:left-full md:top-1/2 md:w-28",
-  },
-] as const;
 
 export function Hero() {
   return (
     <section
       id="hero"
       aria-labelledby="hero-title"
-      className="relative isolate overflow-hidden pt-24"
+      className="relative isolate overflow-hidden pt-24 md:min-h-[100svh] md:flex md:items-center"
     >
-      <div aria-hidden="true" className="plus-grid absolute inset-0 -z-10" />
-
-      <div className="relative max-w-[1280px] mx-auto px-6 pt-8 md:pt-12">
-        <p className="rise inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-[12px] font-mono text-text-2">
-          <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-accent" />
-          {site.seeking}
-        </p>
-
-        {/* Palco: palavras gigantes + esfera + rotulos */}
-        <div className="relative mt-6 md:mt-0">
-          <div className="relative flex flex-col justify-center min-h-[min(100vw,400px)] md:min-h-[600px]">
-            <h1
-              id="hero-title"
-              className="rise relative z-0 font-display uppercase font-light leading-[0.84] tracking-[-0.045em] text-[clamp(52px,13.2vw,208px)] select-none"
-            >
-              <span className="sr-only">
-                {site.name}: {site.role}. Planejar e executar.
-              </span>
-              <span aria-hidden="true" className="block">
-                Planejar
-              </span>
-              <span aria-hidden="true" className="block text-right text-gradient">
-                Executar
-              </span>
-            </h1>
-
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center"
-            >
-              <HeroSphere className="w-[min(92vw,640px)] aspect-square" />
-            </div>
-          </div>
-
-          {/* Rotulos: lista simples no celular, flutuantes ligados ao objeto no desktop */}
-          <ul className="z-20 mt-8 grid gap-3 sm:grid-cols-3 md:mt-0 md:block md:static">
-            {heroLabels.map((l, i) => (
-              <li
-                key={l.title}
-                style={delay(0.45 + i * 0.12)}
-                className={`reveal glass rounded-2xl px-4 py-3 md:absolute md:w-[250px] ${labelLayout[i].pos}`}
-              >
-                <p className="font-display text-[15px] font-medium text-text-1">{l.title}</p>
-                <p className="text-[12px] text-text-2 leading-snug mt-0.5">{l.text}</p>
-                <span
-                  aria-hidden="true"
-                  className={`hidden md:block absolute h-px bg-gradient-to-r from-accent/60 to-transparent ${labelLayout[i].line}`}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <p
-          style={delay(0.3)}
-          className="reveal relative z-20 max-w-[560px] mt-10 text-[16px] md:text-[17px] leading-relaxed text-text-2"
-        >
-          {site.heroLead}
-        </p>
+      {/* Foto de fundo: ocupa o topo no celular e o lado direito no desktop */}
+      <div className="absolute inset-x-0 top-0 -z-10 h-[78svh] md:inset-y-0 md:left-auto md:right-0 md:h-auto md:w-[54%]">
+        <Drift y={70} className="h-full w-full">
+          <Image
+            src="/lucas.jpg"
+            alt={site.heroPhotoAlt}
+            width={1254}
+            height={1254}
+            priority
+            sizes="(min-width: 768px) 54vw, 100vw"
+            className="hero-photo h-full w-full object-cover object-[50%_22%]"
+          />
+        </Drift>
+        {/* A base da foto some no fundo (so desktop; no celular a mascara ja faz isso) */}
+        <div aria-hidden="true" className="hidden md:block absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-bg to-transparent" />
       </div>
 
-      {/* Cartoes sobrepostos na base (borda superior inclinada no desktop) */}
-      <div className="relative z-20 max-w-[1280px] mx-auto px-6 mt-14 md:mt-16">
-        <div className="grid md:grid-cols-[1fr_1.15fr_1fr] gap-3 md:gap-0 md:items-end">
-          <div className="rounded-2xl md:rounded-none bg-bg-2 border border-border md:border-0 p-6 md:pt-14 md:pb-8 md:[clip-path:polygon(0_14%,100%_0,100%_100%,0_100%)]">
-            <p className="text-[12px] font-mono text-text-3 uppercase tracking-widest">
-              {heroCards.about.label}
-            </p>
-            <p className="mt-3 text-[15px] text-text-2 leading-relaxed">{heroCards.about.text}</p>
+      {/* Brilho azul que respira devagar atras do texto */}
+      <div aria-hidden="true" className="hero-glow pointer-events-none absolute -left-40 top-1/4 -z-10 h-[520px] w-[520px] rounded-full" />
+
+      {/* Palavra gigante em contorno, na base */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 overflow-hidden">
+        <Drift x={-160}>
+          <p
+            style={delay(0.4)}
+            className="word-rise word-outline font-display font-bold uppercase whitespace-nowrap text-center leading-[0.8] tracking-[-0.04em] text-[clamp(56px,16vw,250px)] select-none"
+          >
+            {site.heroWord}
+          </p>
+        </Drift>
+      </div>
+
+      <div className="relative w-full max-w-[1280px] mx-auto px-6 pt-[46svh] pb-28 md:py-24">
+        <div className="max-w-[620px]">
+          <h1 id="hero-title" className="rise">
+            <span className="block font-mono text-[14px] font-normal text-text-2">{site.heroGreeting}</span>
+            <span className="mt-1 block font-display font-bold uppercase leading-[0.92] tracking-[-0.03em] text-[clamp(46px,7vw,104px)]">
+              {site.name}
+            </span>
+          </h1>
+
+          <p className="rise mt-4 font-mono text-[13px] uppercase tracking-widest text-accent">{site.role}</p>
+
+          <p style={delay(0.3)} className="reveal mt-5 max-w-[520px] text-[16px] md:text-[17px] leading-relaxed text-text-2">
+            {site.heroLead}
+          </p>
+
+          <div style={delay(0.6)} className="reveal mt-8 flex flex-wrap items-center gap-3">
             <a
-              href="#trajetoria"
-              className="mt-4 inline-flex text-[13px] font-mono text-accent no-underline hover:text-accent-hover"
+              href="#projetos"
+              className="inline-flex items-center gap-2 bg-hot text-bg text-sm font-semibold px-6 py-3 rounded-full no-underline hover:bg-hot-hover hover:-translate-y-0.5 transition-all duration-150"
             >
-              {heroCards.about.linkLabel}
+              Ver projetos
+            </a>
+            <a
+              href="#contato"
+              className="inline-flex items-center gap-2 text-text-1 text-sm font-medium px-6 py-3 rounded-full no-underline border border-border-2 bg-bg/40 hover:bg-bg-4 transition-colors duration-200"
+            >
+              Contato
             </a>
           </div>
 
-          <div className="rounded-2xl md:rounded-none bg-bg-3 border border-border-2 md:border-0 p-6 md:pt-12 md:pb-10 text-center md:[clip-path:polygon(0_0,100%_0,100%_100%,0_100%)]">
-            <h2 className="font-display text-[22px] md:text-[26px] font-medium tracking-tight text-text-1">
-              {heroCards.cta.title}
-            </h2>
-            <p className="mt-3 text-[14px] text-text-2 leading-relaxed max-w-[340px] mx-auto">
-              {heroCards.cta.text}
-            </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <a
-                href="#projetos"
-                className="inline-flex items-center gap-2 bg-accent text-bg text-sm font-semibold px-6 py-3 rounded-full no-underline hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(141,180,232,0.25)] transition-all duration-200"
-              >
-                Ver projetos
-              </a>
-              <a
-                href="#contato"
-                className="inline-flex items-center gap-2 text-text-1 text-sm font-medium px-6 py-3 rounded-full no-underline border border-border-2 hover:bg-bg-4 transition-colors duration-200"
-              >
-                Contato
-              </a>
-            </div>
-          </div>
-
-          <div className="rounded-2xl md:rounded-none bg-bg-2 border border-border md:border-0 p-6 md:pt-14 md:pb-8 md:[clip-path:polygon(0_0,100%_14%,100%_100%,0_100%)]">
-            <p className="text-[12px] font-mono text-text-3 uppercase tracking-widest">
-              {heroCards.find.label}
-            </p>
-            <ul className="mt-3 flex flex-col gap-1">
-              {socialLinks.map((c) => (
-                <li key={c.label}>
-                  <a
-                    href={c.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 py-1.5 text-[15px] text-text-1 no-underline hover:text-accent"
-                  >
-                    {c.label}
-                    <span aria-hidden="true">↗</span>
-                    <span className="sr-only"> (abre em nova aba)</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-3 text-[13px] text-text-2">{site.location}</p>
-          </div>
+          <ul className="mt-10 grid gap-3 sm:grid-cols-3">
+            {heroLabels.map((l, i) => (
+              <li key={l.title} style={delay(0.8 + i * 0.1)} className="reveal glass rounded-xl px-4 py-3">
+                <p className="font-display text-[14px] font-medium text-text-1">{l.title}</p>
+                <p className="mt-0.5 text-[12px] leading-snug text-text-2">{l.text}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

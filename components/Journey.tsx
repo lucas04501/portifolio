@@ -2,7 +2,8 @@
 // Secao "Trajetoria": formacao, cursos e idiomas. Somente o que consta no curriculo.
 // Nao ha experiencia profissional listada: o que construi esta em Projetos.
 
-import { education, courses, languages } from "@/content";
+import { Build } from "@/components/Build";
+import { journey, education, courses, languages } from "@/content";
 
 const heading = "text-[12px] font-mono text-text-3 uppercase tracking-widest mb-5";
 
@@ -14,16 +15,16 @@ export function Journey() {
       className="py-28 bg-bg-2/60 border-y border-border"
     >
       <div className="max-w-[1280px] mx-auto px-6 grid lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-24">
-        <div className="scroll-reveal lg:sticky lg:top-28 self-start">
+        <Build label="secao · trajetoria" className="lg:sticky lg:top-28 self-start">
           <div className="section-label">
             <div className="section-label-line" />
             <span className="section-label-text">trajetória</span>
           </div>
           <h2
             id="trajetoria-title"
-            className="font-display text-[clamp(30px,4.5vw,52px)] font-light leading-[1.08] tracking-[-0.03em]"
+            className="font-display text-[clamp(30px,4.5vw,52px)] font-bold uppercase leading-[0.95] tracking-[-0.03em]"
           >
-            Formação e <strong className="font-medium text-gradient">aprendizado</strong>
+            Jornada e <strong className="font-bold text-hot">formação</strong>
           </h2>
           <p className="mt-5 text-[15px] text-text-2 leading-relaxed max-w-[360px]">
             O que construí até aqui está em{" "}
@@ -32,9 +33,26 @@ export function Journey() {
             </a>
             .
           </p>
-        </div>
+        </Build>
 
-        <div className="scroll-reveal space-y-14">
+        <Build label="content/timeline.ts" className="space-y-14">
+          <div>
+            <h3 className={heading}>Jornada</h3>
+            <ol className="ml-2 border-l border-border-2 space-y-8">
+              {journey.map((j) => (
+                <li key={j.title} className="relative pl-8">
+                  <span
+                    aria-hidden="true"
+                    className="absolute -left-[5px] top-1.5 w-[9px] h-[9px] rounded-full bg-accent"
+                  />
+                  <p className="text-[12px] font-mono text-accent">{j.when}</p>
+                  <p className="mt-1 font-display text-[20px] font-medium tracking-tight text-text-1">{j.title}</p>
+                  <p className="mt-1 text-[15px] text-text-2 leading-relaxed">{j.text}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
           <div>
             <h3 className={heading}>Formação</h3>
             <ol className="ml-2 border-l border-border-2">
@@ -80,7 +98,7 @@ export function Journey() {
               ))}
             </dl>
           </div>
-        </div>
+        </Build>
       </div>
     </section>
   );

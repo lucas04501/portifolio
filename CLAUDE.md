@@ -11,11 +11,12 @@ Portfólio pessoal de Lucas Pereira (estudante de Engenharia de Software, full s
 
 ## Onde fica o quê
 - `content/`: **todo o texto e os dados exibidos** (site, projetos, tecnologias, trajetória). Cada item tem `source` obrigatório no tipo. Para mudar o que o site diz, edite aqui, não os componentes.
-- `components/`: apresentação (Server Components; só `Nav`, `HeroSphere` e `PlusSphere` são de cliente). Entradas animadas em CSS (`.reveal`, `.rise`, `.scroll-reveal` em `app/globals.css`), nunca `opacity: 0` vindo de JavaScript.
+- `components/`: apresentação (Server Components; só `Nav`, `Build` e `Tilt` são de cliente). `Build` envolve um bloco, que nasce como wireframe (CSS `[data-build]` em `app/globals.css`) e vira conteúdo ao entrar na tela; `Tilt`/`Drift` dão a inclinação 3D e o parallax (biblioteca `motion`, pedida pelo Lucas em 2026-11-10). Sem cursores nem enfeites em movimento contínuo: o Lucas quer a página limpa. Entradas do hero em CSS (`.reveal`, `.rise`, `.word-rise`), nunca `opacity: 0` vindo de JavaScript.
 - `lib/github.ts` (`getRepos`) e `lib/projects.ts`: o GitHub só complementa os projetos curados.
 - `app/`: layout com metadados (SEO), `sitemap.ts`, `robots.ts`, `opengraph-image.tsx`, `apple-icon.tsx`, `icon.svg`.
 
 ## Regras do projeto
+- **LENS não aparece** (o Lucas parou de usar, 2026-11-10). Projetos privados (RIZZEVO Hub, Brandão Delícias, Brandão Gestão) entram só com descrição, sem link e sem telas com dados reais.
 - **Nada sem fonte.** Todo dado exibido (formação, projetos, tecnologias, contato) precisa vir de currículo, repositório ou confirmação do Lucas. Sem anos de experiência, cargos, receita, usuários ou métricas inventadas.
 - **Repositório público.** Nunca versionar `.env*`, tokens, telefone, CPF, endereço, documentos nem o currículo. O inventário e as decisões ficam no vault Obsidian (área `04 - Projetos/Portfolio Lucas`), fora do repo.
 - **Sem commit, push, merge ou deploy sem autorização explícita.** Cada merge ou push em `main` publica o site na Vercel na hora. Nunca trabalhar direto em `main`: usar uma branch (`feat/...`, `fix/...`, `docs/...`) e levar ao `main` por Pull Request, sem apagar histórico.

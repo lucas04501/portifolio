@@ -1,5 +1,5 @@
 export * from "./types"
-export { site, contacts, socialLinks, workStyle, heroLabels, heroCards } from "./site"
+export { site, contacts, socialLinks, workStyle, heroLabels } from "./site"
 export { projects } from "./projects"
 export { skillGroups } from "./skills"
-export { education, courses, languages } from "./timeline"
+export { journey, education, courses, languages } from "./timeline"

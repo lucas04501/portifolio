@@ -1,13 +1,14 @@
 // components/About.tsx
 // Secao "Sobre mim". Todo o texto vem de content/ (cada item tem fonte registrada).
 
+import { Build } from "@/components/Build";
 import { site, workStyle } from "@/content";
 
 export function About() {
   return (
     <section id="sobre" aria-labelledby="sobre-title" className="py-28">
       <div className="max-w-[1280px] mx-auto px-6 grid lg:grid-cols-[1.15fr_1fr] gap-14 lg:gap-24">
-        <div className="scroll-reveal">
+        <Build label="content/site.ts · sobre">
           <div className="section-label">
             <div className="section-label-line" />
             <span className="section-label-text">sobre mim</span>
@@ -15,10 +16,10 @@ export function About() {
 
           <h2
             id="sobre-title"
-            className="font-display text-[clamp(32px,5vw,60px)] font-light leading-[1.05] tracking-[-0.03em] mb-8"
+            className="font-display text-[clamp(32px,5vw,60px)] font-bold uppercase leading-[0.95] tracking-[-0.03em] mb-8"
           >
             Aprendendo na prática,{" "}
-            <strong className="font-medium text-gradient">do planejamento à publicação</strong>.
+            <strong className="font-bold text-hot">do planejamento à publicação</strong>.
           </h2>
 
           <div className="space-y-5 max-w-[620px]">
@@ -34,9 +35,9 @@ export function About() {
             <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-accent" />
             Procuro: {site.seeking}
           </p>
-        </div>
+        </Build>
 
-        <div className="scroll-reveal lg:pt-[72px]">
+        <Build label="content/site.ts · como trabalho" className="lg:pt-[72px]">
           <h3 className="text-[12px] font-mono text-text-3 uppercase tracking-widest mb-6">
             Como eu trabalho
           </h3>
@@ -50,7 +51,7 @@ export function About() {
               </div>
             ))}
           </dl>
-        </div>
+        </Build>
       </div>
     </section>
   );
